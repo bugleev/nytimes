@@ -7,7 +7,7 @@ import Form from './Form';
 class Body extends Component {
   render() {
     return (
-      <div className="uk-section uk-preserve-color" style={{ backgroundColor: "#555", height: "1000px" }}>
+      <div className="uk-section uk-preserve-color">
         <Navbar />
         <Form />
         <div className="uk-child-width-1-2 uk-child-width-1-4@s uk-grid-match" data-uk-grid>
