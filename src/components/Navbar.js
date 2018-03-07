@@ -7,7 +7,7 @@ const Navbar = (props) => {
         <div className="uk-container uk-container-expand">
           <div data-uk-navbar>
             <ul className="uk-navbar-nav">
-              <li className="uk-active"><a href="#">Active</a></li>
+              <li className="uk-active"><a href="">Active</a></li>
               <li>
                 <a href="">Parent</a>
                 <div className="uk-navbar-dropdown">
