@@ -7,7 +7,7 @@ div.main{
 }`
 export const form = css`
 form{
-  max-height: 150px;
+ 
   margin: 0 1rem;
 }`
 export const legend__text = css`
@@ -16,7 +16,7 @@ export const legend__text = css`
   }
   @media only screen and (max-width: 600px) {
     .uk-legend{
-      color: red;
+   
       font-size: 100%;
     }
   }
