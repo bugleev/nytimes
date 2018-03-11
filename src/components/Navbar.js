@@ -26,7 +26,7 @@ const Navbar = (props) => {
             <div className="nav-overlay uk-navbar-left uk-flex-1" hidden>
               <div className="uk-navbar-item uk-width-expand">
                 <form className="uk-search uk-search-navbar uk-width-1-1 uk-width-2-3@s ">
-                  <input className="uk-search-input" type="search" placeholder="Search..." autofocus />
+                  <input className="uk-search-input" type="search" placeholder="Search..." autoFocus />
                 </form>
               </div>
               <a className="uk-navbar-toggle" data-uk-close data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
