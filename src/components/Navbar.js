@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = (props) => {
   return (
     <div className="uk-width-1-1">
-      <div data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent uk-light; top: 100" className="wrapper">
+      <div data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 100" className="wrapper">
         <nav className="uk-navbar-container uk-container-expand">
           <div data-uk-navbar>
             <ul className="uk-navbar-nav nav-overlay">
@@ -26,7 +26,7 @@ const Navbar = (props) => {
             <div className="nav-overlay uk-navbar-left uk-flex-1" hidden>
               <div className="uk-navbar-item uk-width-expand">
                 <form className="uk-search uk-search-navbar uk-width-1-1 uk-width-2-3@s ">
-                  <input className="uk-search-input" type="search" placeholder="Search..." autoFocus />
+                  <input className="uk-search-input" id="search" type="search" placeholder="Search..." autoFocus />
                 </form>
               </div>
               <a className="uk-navbar-toggle" data-uk-close data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
@@ -34,13 +34,25 @@ const Navbar = (props) => {
           </div>
         </nav>
         <style jsx>{`
-      .uk-light .uk-navbar-nav > li.uk-active > a,
-      .uk-light .uk-navbar-nav > li > a {
+        #search{
+          color: #333;
+        }
+      .uk-navbar-nav > li > a {
+        color: #A9B7C0;
+        
+      }
+      .uk-navbar-nav > li > a:hover {
         color: #333;
-        font-weight: bold;
+      
+      }
+      .uk-navbar-nav > li:hover{
+        background-color: #e9ebe4;
+      }
+      .uk-navbar-nav > li.uk-active > a{
+        color: #333;
       }
       .uk-navbar-transparent{
-        background-color: rgba(164, 165, 119, 0.5)
+        background-color: #F7F5E6;
       }
     `}</style>
       </div>

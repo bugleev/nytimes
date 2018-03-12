@@ -1,31 +1,86 @@
 import css from 'styled-jsx/css'
 import img from './newspaper.jpg';
 export default css`
+/*****BOX SHADOWS ******/
+/*
+.BoxShadowHelper(@level: 1){
+    & when (@level = 1) {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    & when (@level = 2) {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    & when (@level = 3) {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    & when (@level = 4) {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+    & when (@level = 5) {
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    }
+}
+*/
+.uk-card-default {
+  background: #fff;
+  color: #666;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s ease;
+}
+.uk-card-default:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transform: translateY(-5px);
+}
+
 .main{
   background-image: url(${img});
   background-size: contain;
   padding-bottom: 1rem;
   
+  /* border: 1px solid #d9d9d9;
+  transition: box-shadow .4s ease; 
+  box-shadow: 0 1px 5px 2px rgba(0,0,0,.2) !important;
+  CARDS HOVER:
+  background-color: #f6f6f3
+  LINKS HOVER:
+  background-color: #e9ebe4;
+  FOOTER:
+  background-color: #6e634f;
+
+
+  */
 }
 .results{
-  background-color: antiquewhite;
-  box-shadow: 1px 5px 20px #555;
+  z-index: 50;
+  background-color: #F7F5E6;
+  /* box-shadow: 0 6px 45px #555;*/
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin: 0 auto 1rem auto;
 }
 @media only screen and (max-width: 959px) {
   .results{
-   width: 95%;
+   width: 85%;
   }
 }
-.header{
-  height: 150px;
-  margin: 0 auto;
-
-}
-
-
 `
 export const form = css`
+.uk-input:focus {
+  outline: none;
+  background-color: #fff;
+  color: #666;
+  border-color: #52658F;
+}
+.uk-button-primary {
+  background-color: #333A56;
+  padding-left: 30px;
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  
+}
+.uk-button-primary:hover {
+  background-color: #52658F;
+}
 form{
    margin: 0 auto;
    padding-top: 2rem;
@@ -34,23 +89,52 @@ fieldset{
   padding-left: 0;
 }
 @media only screen and (min-width: 529px) {
-  form > fieldset:first-child{
+  fieldset:first-of-type{
     padding-right: 1rem;
   }
 }
-
-
 `
-export const legend__text = css`
-  .uk-legend{
-    
+export const header = css`
+  .logo{
+    position: relative;
+    padding: 2rem;
+    margin: 0 auto;
   }
-  @media only screen and (max-width: 600px) {
-    .uk-legend{
-   
+  .logo::after{
+    z-index: 500;
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+    content: "archive";
+    color: #d4c89e;
+    font-size: 300%;
+    font-weight: bold;
+    text-shadow: 2px 0 1px #233237, -2px 0 1px #233237, 0 2px 1px #233237, 0 -3px 1px #233237, 2px 2px #233237, -2px -2px 0 #233237, 2px -2px 0 #233237, -2px 2px 0 #233237;
+    transform: rotateZ(-15deg)
+  }  
+
+  .header{
+    margin: 0 auto;
+    background-color: #F7F5E6;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+  @media only screen and (max-width: 959px) {
+    .header{
+      width: 85%;
     }
+    .logo::after{
+      font-size: 200%;
+      margin-right: 1rem;
+    } 
   }
-}`
+  @media only screen and (max-width: 480px) {
+    .logo::after{
+      font-size: 150%;
+    } 
+              
+  }
+`
+
 
 
 
