@@ -1,5 +1,7 @@
 import React from "react";
-import { form } from './styles';
+import { form } from './styles'
+
+
 
 const Form = (props) => {
   return (
@@ -15,14 +17,12 @@ const Form = (props) => {
       </fieldset>
       <fieldset className="uk-fieldset uk-width-1-1">
         <legend className="uk-legend">Search Query</legend>
-        <input className="uk-input" type="text" value={props.value} onChange={props.onChange} placeholder="Enter a keyword" />
+        <input className="uk-input" type="text" placeholder="Enter a keyword" onChange={props.onChange} value={props.value} />
       </fieldset>
       <input className="uk-button uk-button-primary" type="submit" />
       <style jsx>{form}</style>
     </form>
   )
-
-
 }
 
 export default Form;

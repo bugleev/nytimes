@@ -38,9 +38,9 @@ class Body extends Component {
         <div className="uk-width-3-4@m uk-flex-center results uk-container" >
           <Form onChange={this.handleInputChange} onSubmit={this.handleFormSubmit} value={this.state.queryValue} />
           <div className="uk-child-width-1-1 uk-child-width-1-2@s uk-flex-around" data-uk-grid>
-            {this.state.articles.map((article, index) => {
+            {this.state.articles.map(article => {
               return (
-                <div key={index}>
+                <div key={article._id}>
                   <div className="uk-card uk-card-default uk-card-body ">
                     <p className="uk-text-center">{article.headline.main}</p>
                     <p className="uk-text-center">{article.snippet}</p>
