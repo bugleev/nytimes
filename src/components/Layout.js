@@ -3,31 +3,53 @@ import React, { Component } from 'react';
 import Form from './Form';
 import styles from './styles';
 import Header from './Header';
+import axios from 'axios';
 
+const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
+let url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
+// url += `?api-key=${apiKey}&q=${event.target.value}&begin_date=${beginDate}&end_date=${endDate}`;
 
 class Body extends Component {
+
+  state = {
+    queryValue: '',
+    articles: []
+  };
+
+  handleInputChange = (event) => {
+    this.setState({ queryValue: event.target.value });
+  }
+  handleFormSubmit = (event) => {
+    console.log(url);
+    const query = `${url}?api-key=${apiKey}&q=${this.state.queryValue}`;
+    axios.get(query).then(res => {
+      this.setState({ articles: res.data.response.docs });
+      console.log(this.state.articles);
+    })
+    event.preventDefault();
+  }
+
+
   render() {
     return (
       <div className="main">
         <Header />
         <div className="uk-width-3-4@m uk-flex-center results uk-container" >
-          <Form />
+          <Form onChange={this.handleInputChange} onSubmit={this.handleFormSubmit} value={this.state.queryValue} />
           <div className="uk-child-width-1-1 uk-child-width-1-2@s uk-flex-around" data-uk-grid>
-            <div>
-              <div className="uk-card uk-card-default uk-card-body ">
-                <p className="uk-text-center">Fade</p>
-              </div>
-            </div>
-            <div>
-              <div className="uk-card uk-card-default uk-card-body ">
-                <p className="uk-text-center">Fade</p>
-              </div>
-            </div>
-            <p className="uk-width-1-1 uk-text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit nulla eum voluptatem pariatur. Quo consectetur voluptas quisquam laudantium, quis explicabo dolorem natus aspernatur autem sequi est quam vitae facilis modi laborum, omnis exercitationem quas nisi. Odio eaque commodi eligendi labore deleniti eius ipsam facilis corporis, accusantium facere, itaque reiciendis sed placeat natus tempore veritatis aperiam laudantium animi corrupti nemo! Aperiam sint natus architecto eius impedit consequatur earum atque, quibusdam illum. Eligendi illum perspiciatis, nisi recusandae exercitationem eos cupiditate, neque cumque ut at aliquid cum, incidunt explicabo iure voluptatibus dolorem? Quod vitae fugit fuga veniam aut veritatis eius aspernatur officiis totam aliquid nisi vel aperiam id expedita, nobis perspiciatis ut voluptatem harum dolorem, est reprehenderit. Velit nostrum culpa soluta voluptas doloremque. Explicabo labore minima facere ipsa qui recusandae aperiam, sunt dignissimos blanditiis nihil omnis quaerat perferendis maiores velit atque illum pariatur. Eius provident cupiditate voluptates eveniet nulla, reiciendis ad? Ipsa ipsam quos minima, impedit quo soluta, nesciunt debitis reiciendis unde, necessitatibus suscipit molestiae repudiandae quae harum nobis aut! Debitis minus et magnam, consequuntur iure facilis ullam porro blanditiis non placeat quis eaque autem nam fugiat impedit repellendus illum doloremque perspiciatis modi! Accusantium natus voluptas placeat ipsum eaque, neque repudiandae nemo autem quos quia quisquam repellat est assumenda non dignissimos expedita accusamus culpa, velit temporibus deleniti! Magnam eaque, eius, ut vel ullam eos aperiam temporibus, sint aut possimus provident dolores accusantium velit iusto libero architecto. Excepturi nihil reiciendis voluptatibus dignissimos dolores cupiditate, ipsam alias. Dolorem, veritatis. Suscipit quaerat temporibus quo, sapiente earum repellat blanditiis quis consectetur? Corporis nihil enim incidunt debitis voluptates quas ea nesciunt dolores ad neque consequatur, doloribus quidem dolore quam tempora, dignissimos reiciendis vel repellendus necessitatibus beatae ullam facilis! Nostrum sint facilis ut commodi omnis explicabo illo molestiae asperiores odio perferendis quibusdam, placeat cupiditate recusandae veniam dolorem facere, ipsam natus officiis ullam exercitationem eos enim aperiam optio? Explicabo rem id hic dolore quaerat voluptates, et corporis optio exercitationem maiores eaque alias esse assumenda deleniti vitae eius quo, repellendus obcaecati. Corporis beatae laudantium in dolores mollitia, sint quaerat delectus velit aliquid eveniet facilis ratione nemo aspernatur, culpa dolorum sit dignissimos animi nobis placeat maiores nisi odit? Dolorum accusantium quas earum sint, sequi, quisquam molestiae fugiat iste perspiciatis nemo commodi rem natus officia adipisci. Veniam, possimus cupiditate quisquam animi vitae voluptatibus illum. Sed qui esse vitae pariatur, dignissimos dolore ducimus eos quibusdam quidem vel nostrum, assumenda rerum minus nesciunt sint deleniti laudantium tenetur ut cum rem atque excepturi. Voluptates voluptas aliquid, quae, pariatur ullam quo vel magni dolorum inventore expedita perspiciatis culpa. Dolorum, corporis odio libero beatae dicta accusantium provident placeat magni voluptas, enim corrupti, earum suscipit iure mollitia excepturi consequuntur deleniti architecto vitae! Maiores rem deserunt accusantium odio impedit architecto! Tempore amet ea natus porro eveniet quaerat deserunt, unde, assumenda veritatis voluptates dolores laboriosam quia suscipit delectus! Vero ut distinctio voluptatum dignissimos iusto labore accusantium dolore quidem laboriosam, sit doloribus ab fuga quaerat vel ad reiciendis enim excepturi repellendus voluptatem expedita, natus, eaque reprehenderit? Accusantium repellendus perspiciatis vitae modi nemo?</p>
+            {this.state.articles.map((article, index) => {
+              return (
+                <div key={index}>
+                  <div className="uk-card uk-card-default uk-card-body ">
+                    <p className="uk-text-center">{article.headline.main}</p>
+                    <p className="uk-text-center">{article.snippet}</p>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
-
         <style jsx>{styles}</style>
       </div>
 
