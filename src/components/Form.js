@@ -64,7 +64,13 @@ class Form extends Component {
     multiple: false
   }
   handleSelect = (event, fieldName) => {
-    const selectedFields = Array.from(event.target.selectedOptions).map(el => data.fieldName[el.index]);
+    const selectedFields = Array.from(event.target.selectedOptions).map(el => {
+      let key;
+      for (key in data) {
+        if (key === fieldName) return data[key][el.index]
+      }
+    })
+
     const newSearchParams = [...this.state.searchParams].map(element => {
       if (Object.keys(element)[0] === fieldName) {
         element[fieldName] = selectedFields;
@@ -72,20 +78,28 @@ class Form extends Component {
       }
       return element;
     });
-    // if (!this.state.multiple) {
-    //   const newQuery = `${fieldName}:(${selectedFields.join(" ")})`;
-    //   this.setState({
-    //     multiple: true
-    //   })
-    //   console.log(newQuery);
-    // } else {
-    //   const newQuery = ` AND ${fieldName}:(${selectedFields.join(" ")})`;
-    //   console.log(newQuery);
-    // }
-    const newQuery = `&fq=${fieldName}:(${selectedFields.join(" ")})`;
     this.setState({
       searchParams: newSearchParams,
-      query: newQuery
+    })
+    let firstQuery = "&fq=";
+    let newQuery = "";
+    this.state.searchParams.forEach(el => {
+      let key;
+      for (key in el) {
+        if (el[key].length && !this.state.multiple) {
+          firstQuery += `${key}:(${el[key].join(" ")})`;
+          this.setState({
+            multiple: true,
+          })
+        }
+        if (el[key].length && this.state.multiple) {
+          newQuery += ` AND ${key}:(${el[key].join(" ")})`;
+        }
+      }
+    })
+
+    this.setState({
+      query: firstQuery + newQuery.slice(5)
     })
     console.log(selectedFields);
     console.log(this.state.query);
