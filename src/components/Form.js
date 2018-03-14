@@ -61,7 +61,7 @@ class Form extends Component {
       { fields: [] }
     ],
     query: "",
-    multiple: false
+    multipleQuery: false
   }
   handleSelect = (event, fieldName) => {
     const selectedFields = Array.from(event.target.selectedOptions).map(el => {
@@ -70,7 +70,6 @@ class Form extends Component {
         if (key === fieldName) return data[key][el.index]
       }
     })
-
     const newSearchParams = [...this.state.searchParams].map(element => {
       if (Object.keys(element)[0] === fieldName) {
         element[fieldName] = selectedFields;
@@ -78,21 +77,23 @@ class Form extends Component {
       }
       return element;
     });
+
     this.setState({
       searchParams: newSearchParams,
     })
     let firstQuery = "&fq=";
     let newQuery = "";
+
     this.state.searchParams.forEach(el => {
       let key;
       for (key in el) {
-        if (el[key].length && !this.state.multiple) {
+        if (el[key].length && !this.state.multipleQuery) {
           firstQuery += `${key}:(${el[key].join(" ")})`;
           this.setState({
-            multiple: true,
+            multipleQuery: true,
           })
         }
-        if (el[key].length && this.state.multiple) {
+        if (el[key].length && this.state.multipleQuery) {
           newQuery += ` AND ${key}:(${el[key].join(" ")})`;
         }
       }
