@@ -1,47 +1,40 @@
-import React, { Component } from "react";
-import { form } from './styles'
+import React, { Component } from 'react';
+import { form } from './styles';
+import data from "../assets/data";
+import DatePicker from 'react-date-picker';
 
-const news_desk = "Adventure Sports,Arts & Leisure,Arts,Automobiles,Blogs,Books,Booming,Business Day,Business,Cars,Circuits,Classifieds,Connecticut,Crosswords & Games,Culture,DealBook,Dining,Editorial,Education,Energy,Entrepreneurs,Environment,Escapes,Fashion & Style,Fashion,Favorites,Financial,Flight,Food,Foreign,Generations,Giving,Global Home,Health & Fitness,Health,Home & Garden,Home,Jobs,Key,Letters,Long Island,Magazine,Market Place,Media,Men's Health,Metro,Metropolitan,Movies,Museums,National,Nesting,Obits,Obituaries,Obituary,OpEd,Opinion,Outlook,Personal Investing,Personal Tech,Play,Politics,Regionals,Retail,Retirement,Science,Small Business,Society,Sports,Style,Sunday Business,Sunday Review,Sunday Styles,T Magazine,T Style,Technology,Teens,Television,The Arts,The Business of Green,The City Desk,The City,The Marathon,The Millennium,The Natural World,The Upshot,The Weekend,The Year in Pictures,Theater,Then & Now,Thursday Styles,Times Topics,Travel,U.S.,Universal,Upshot,UrbanEye,Vacation,Washington,Wealth,Weather,Week in Review,Week,Weekend,Westchester,Wireless Living,Women's Health,Working,Workplace,World,Your Money".split(",").map(el => el = `"${el}"`);
 
-const section_name = "Arts,Automobiles,Autos,Blogs,Books,Booming,Business,Business Day,Corrections,Crosswords & Games,Crosswords/Games,Dining & Wine,Dining and Wine,Editors' Notes,Education,Fashion & Style,Food,Front Page,Giving,Global Home,Great Homes & Destinations,Great Homes and Destinations,Health,Home & Garden,Home and Garden,International Home,Job Market,Learning,Magazine,Movies,Multimedia,Multimedia/Photos,N.Y. / Region,N.Y./Region,NYRegion,NYT Now,National,New York,New York and Region,Obituaries,Olympics,Open,Opinion,Paid Death Notices,Public Editor,Real Estate,Science,Sports,Style,Sunday Magazine,Sunday Review,T Magazine,T:Style,Technology,The Public Editor,The Upshot,Theater,Times Topics,TimesMachine,Today's Headlines,Topics,Travel,U.S.,Universal,UrbanEye,Washington,Week in Review,World,Your Money".split(",").map(el => el = `"${el}"`);
+class FieldSelectionForm extends Component {
 
-const type_of_material = "Addendum,An Analysis,An Appraisal,Article,Banner,Biography,Birth Notice,Blog,Brief,Caption,Chronology,Column,Correction,Economic Analysis,Editorial,Editorial Cartoon,Editors' Note,First Chapter,Front Page,Glossary,Interactive Feature,Interactive Graphic,Interview,Letter,List,Marriage Announcement,Military Analysis,News,News Analysis,Newsletter,Obituary,Obituary (Obit),Op-Ed,Paid Death Notice,Postscript,Premium,Question,Quote,Recipe,Review,Schedule,SectionFront,Series,Slideshow,Special Report,Statistics,Summary,Text,Video,Web Log".split(",").map(el => el = `"${el}"`);
-
-const fields = "body,body.search,creative_works,creative_works.contains,day_of_week,document_type,glocations,glocations.contains,headline,headline.search,kicker,kicker.contains,news_desk,news_desk.contains,organizations,organizations.contains,persons,persons.contains,pub_date,pub_year,secpg,source,source.contains,subject,subject.contains,section_name,section_name.contains,type_of_material,type_of_material.contains,web_url,word_count".split(",").map(el => el = `"${el}"`);
-
-const data = {
-  news_desk,
-  section_name,
-  type_of_material,
-  fields
-};
-
-const FieldSelectionForm = (props) => {
-
-  let fieldType;
-  let key;
-  for (key in data) {
-    if (props.field === key) {
-      fieldType = data[key].map((el, ind) => {
-        return <option key={ind}>{el}</option>
+  render() {
+    let fieldType;
+    let key;
+    for (key in data) {
+      if (this.props.field === key) {
+        fieldType = data[key].map((el, ind) => {
+          return <option key={ind}>{el}</option>
+        })
       }
-      )
     }
+    return (
+      <div className="uk-width-1-2@s uk-flex-center" data-uk-grid>
+        <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-1@s">
+          <label className="uk-form-label" htmlFor="form-s-multiple">{this.props.field}</label><span className="uk-article-meta clear" onClick={this.props.onClear}>clear</span>
+          <select defaultValue={[]} className="uk-select" id="form-s-multiple" multiple onChange={this.props.select}>
+            {fieldType}
+          </select>
+        </fieldset>
+        <style jsx>{form}</style>
+      </div>
+    )
+
   }
-  return (
-    <div className="uk-width-1-2 uk-flex-center" data-uk-grid>
-      <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-1@s">
-        <label className="uk-form-label" htmlFor="form-s-multiple">{props.field}</label>
-        <select className="uk-select" id="form-s-multiple" multiple onChange={props.select}>
-          {fieldType}
-        </select>
-      </fieldset>
-    </div>
-  )
 }
+
 const QueryField = (props) => {
+
   return (
-    <div className="uk-section uk-width-1-1 uk-width-1-2@m query" data-uk-grid>
+    <div className="uk-section uk-width-1-1 uk-width-2-3@m query" data-uk-grid>
       <p className="uk-width-1-1 uk-text-center">Check your search query here:</p>
       <pre>
         <code>{props.value}
@@ -53,40 +46,65 @@ const QueryField = (props) => {
 }
 
 class Form extends Component {
+
   state = {
+    beginDate: new Date("2017-01-01"),
+    endDate: new Date(),
     searchParams: [
       { news_desk: [] },
       { section_name: [] },
-      { type_of_material: [] },
-      { fields: [] }
+      { type_of_material: [] }
     ],
     query: "",
     multipleQuery: false
   }
-  handleSelect = (event, fieldName) => {
-    const selectedFields = Array.from(event.target.selectedOptions).map(el => {
-      let key;
-      for (key in data) {
-        if (key === fieldName) return data[key][el.index]
-      }
-    })
-    const newSearchParams = [...this.state.searchParams].map(element => {
+
+  beginDateChange = date => {
+    this.setState({ beginDate: date })
+    this.updateDateQuery("beginDate");
+  }
+
+
+  endDateChange = date => this.setState({ endDate: date })
+  handleClearButton = (event, fieldName) => {
+
+    let element = event.target.classList;
+    let selectedParams = event.target.nextSibling.selectedOptions;
+    event.target.classList.add("pressed");
+    setTimeout(() => {
+      element.remove("pressed");
+    }, 100)
+    let newSearchParams = [...this.state.searchParams].map(element => {
       if (Object.keys(element)[0] === fieldName) {
-        element[fieldName] = selectedFields;
+        element[fieldName] = [];
         return element;
       }
       return element;
     });
+    for (let i = 0; i < selectedParams.length; i++) {
+      selectedParams[i].selected = false;
+    }
 
     this.setState({
       searchParams: newSearchParams,
     })
-    let firstQuery = "&fq=";
-    let newQuery = "";
+    this.updateParamsQuery();
 
+    // clearing for the second time because of the default selection appearing for some reason after first clear
+    for (let i = 0; i < selectedParams.length; i++) {
+      selectedParams[i].selected = false;
+    }
+  }
+
+  updateParamsQuery = () => {
+
+    let checkParams = 0;
+    let firstQuery = "";
+    let restQuery = "";
     this.state.searchParams.forEach(el => {
       let key;
       for (key in el) {
+        checkParams += el[key].length;
         if (el[key].length && !this.state.multipleQuery) {
           firstQuery += `${key}:(${el[key].join(" ")})`;
           this.setState({
@@ -94,34 +112,63 @@ class Form extends Component {
           })
         }
         if (el[key].length && this.state.multipleQuery) {
-          newQuery += ` AND ${key}:(${el[key].join(" ")})`;
+          restQuery += ` AND ${key}:(${el[key].join(" ")})`;
         }
       }
     })
-
+    let preQuery = checkParams ? "&fq=" : "";
     this.setState({
-      query: firstQuery + newQuery.slice(5)
+      query: preQuery + firstQuery + restQuery.slice(5)
     })
-    console.log(selectedFields);
-    console.log(this.state.query);
+  }
+
+  updateDateQuery = (dateType) => {
+    let key
+    for (key in this.state) {
+      if (key === dateType) {
+        let month = (this.state[key].getMonth() + 1);
+        month = (month < 10) ? ("0" + month.toString()) : month.toString();
+        let day = this.state[key].getDate();
+        day = (day < 10) ? ("0" + day.toString()) : day.toString();
+        const newDate = `${this.state[key].getFullYear()}${month}${day}`;
+        console.log(newDate);
+      }
+    }
 
 
   }
 
+  handleSelect = (event, fieldName) => {
 
+    let selectedFields = Array.from(event.target.selectedOptions).map(el => {
+      let key;
+      for (key in data) {
+        if (key === fieldName) return `"${data[key][el.index]}"`
+      }
+    })
+    let newSearchParams = [...this.state.searchParams].map(element => {
+      if (Object.keys(element)[0] === fieldName) {
+        element[fieldName] = selectedFields;
+        return element;
+      }
+      return element;
+    });
+    this.setState({
+      searchParams: newSearchParams,
+    })
+    this.updateParamsQuery();
+  }
   render() {
     return (
       <form onSubmit={this.props.onSubmit} className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper" data-uk-grid>
         <hr className="uk-width-1-1" />
         <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
           <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
-          <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-4@s">
-            <label className="uk-form-label" htmlFor="form-s-date">From:</label>
-            <input className="uk-input" id="form-s-date" type="date" placeholder="1970-01-01" />
+          <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
+            <DatePicker onChange={this.beginDateChange} value={this.state.beginDate} />
           </fieldset>
-          <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-4@s">
-            <label className="uk-form-label" htmlFor="form-s-date">To:</label>
-            <input className="uk-input" id="form-s-date" type="date" placeholder="1970-01-01" />
+          <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
+            <DatePicker onChange={this.endDateChange} value={this.state.endDate} />
           </fieldset>
         </div>
         {this.state.searchParams.map((param, index) => {
@@ -129,6 +176,7 @@ class Form extends Component {
             select={(event, fieldName) => this.handleSelect(event, Object.keys(param)[0])}
             field={Object.keys(param)[0]}
             key={index}
+            onClear={(event, fieldName) => this.handleClearButton(event, Object.keys(param)[0])}
           />
         })}
         <QueryField value={this.state.query} />

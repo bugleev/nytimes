@@ -64,8 +64,26 @@ export default css`
 }
 `
 export const form = css`
+
+
+.clear{
+  cursor: pointer;
+  float: right;
+  color: #333A56;
+  padding-right: 1em;
+  padding-left: 1em;
+  background-color: #E8E8E8;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); 
+}
+.clear.pressed{
+  font-size: 85%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12);
+}
+
+
 .query pre{
   width: 100%;
+  min-height: 3rem;
   padding: 9.5px;
   margin: 0 0 10px;
   background-color: #E8E8E8;
@@ -77,9 +95,8 @@ export const form = css`
 }
 .query pre code{
   white-space: pre-wrap;
-}
-
-
+  font-size: 0.7rem;
+ }
 
 .uk-input:focus {
   outline: none;
@@ -104,6 +121,9 @@ form{
 }
 fieldset{
   padding-left: 0;
+}
+.datepicker{
+  margin-top: 1rem;
 }
 @media only screen and (min-width: 529px) {
   fieldset:first-of-type{
