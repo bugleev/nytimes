@@ -46,10 +46,12 @@ const QueryField = (props) => {
 }
 
 class Form extends Component {
-
+  componentDidMount() {
+    this.updateParamsQuery();
+  }
   state = {
-    beginDate: new Date("2017-01-01"),
-    endDate: new Date(),
+    begin_date: new Date("2017-01-01"),
+    end_date: new Date(),
     searchParams: [
       { news_desk: [] },
       { section_name: [] },
@@ -59,13 +61,12 @@ class Form extends Component {
     multipleQuery: false
   }
 
-  beginDateChange = date => {
-    this.setState({ beginDate: date })
-    this.updateDateQuery("beginDate");
+  dateChange = (date, dateType) => {
+    this.setState({ [dateType]: date }, () => {
+      this.updateParamsQuery();
+    });
   }
 
-
-  endDateChange = date => this.setState({ endDate: date })
   handleClearButton = (event, fieldName) => {
 
     let element = event.target.classList;
@@ -97,13 +98,26 @@ class Form extends Component {
   }
 
   updateParamsQuery = () => {
-
+    let newDate = [];
+    for (let key in this.state) {
+      if (key === "begin_date" || key === "end_date") {
+        if (this.state[key]) {
+          let month = (this.state[key].getMonth() + 1);
+          month = (month < 10) ? ("0" + month.toString()) : month.toString();
+          let day = this.state[key].getDate();
+          day = (day < 10) ? ("0" + day.toString()) : day.toString();
+          newDate.push(`&${key}=${this.state[key].getFullYear()}${month}${day}`);
+        } else {
+          newDate.push("");
+        }
+        console.log(newDate);
+      }
+    }
     let checkParams = 0;
     let firstQuery = "";
     let restQuery = "";
     this.state.searchParams.forEach(el => {
-      let key;
-      for (key in el) {
+      for (let key in el) {
         checkParams += el[key].length;
         if (el[key].length && !this.state.multipleQuery) {
           firstQuery += `${key}:(${el[key].join(" ")})`;
@@ -118,24 +132,8 @@ class Form extends Component {
     })
     let preQuery = checkParams ? "&fq=" : "";
     this.setState({
-      query: preQuery + firstQuery + restQuery.slice(5)
+      query: newDate[0] + newDate[1] + preQuery + firstQuery + restQuery.slice(5)
     })
-  }
-
-  updateDateQuery = (dateType) => {
-    let key
-    for (key in this.state) {
-      if (key === dateType) {
-        let month = (this.state[key].getMonth() + 1);
-        month = (month < 10) ? ("0" + month.toString()) : month.toString();
-        let day = this.state[key].getDate();
-        day = (day < 10) ? ("0" + day.toString()) : day.toString();
-        const newDate = `${this.state[key].getFullYear()}${month}${day}`;
-        console.log(newDate);
-      }
-    }
-
-
   }
 
   handleSelect = (event, fieldName) => {
@@ -165,10 +163,16 @@ class Form extends Component {
         <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
           <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
           <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
-            <DatePicker onChange={this.beginDateChange} value={this.state.beginDate} />
+            <DatePicker
+              onChange={(event, fieldName) => this.dateChange(event, "begin_date")}
+              value={this.state.begin_date}
+            />
           </fieldset>
           <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
-            <DatePicker onChange={this.endDateChange} value={this.state.endDate} />
+            <DatePicker
+              onChange={(event, fieldName) => this.dateChange(event, "end_date")}
+              value={this.state.end_date}
+            />
           </fieldset>
         </div>
         {this.state.searchParams.map((param, index) => {
