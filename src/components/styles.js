@@ -1,5 +1,10 @@
 import css from 'styled-jsx/css'
 import img from './newspaper.jpg';
+import font__header from '../cheltenham-italic-700.woff';
+import font__main from '../cheltenham-normal-400.woff';
+import font__franklin from '../nyt-franklin-500-normal.woff';
+
+
 export default css`
 /*****BOX SHADOWS ******/
 /*
@@ -21,16 +26,7 @@ export default css`
     }
 }
 */
-.uk-card-default {
-  background: #fff;
-  color: #666;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.25s ease-in
-}
-.uk-card-default:hover {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  transform: translateY(-5px);
-}
+
 
 .main{
   background-image: url(${img});
@@ -46,8 +42,20 @@ export default css`
   background-color: #e9ebe4;
   FOOTER:
   background-color: #6e634f;
-
-
+  DATE:
+      font-size: 0.6875rem;
+    line-height: 13px;
+    line-height: 0.8125rem;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "nyt-franklin",arial,helvetica,sans-serif;
+    display: block;
+    color: #999;
+  P TEXT:
+  font-size: 0.9375rem;
+    line-height: 22px;
+    line-height: 1.375rem;
+    font-weight: 500;
   */
 }
 .results{
@@ -130,6 +138,89 @@ fieldset{
     padding-right: 1rem;
   }
 }
+`
+export const card = css`
+
+@font-face {
+  font-family: 'cheltenham700';
+  src: url(${font__header}), url(${font__header}) format('woff');
+}
+@font-face {
+  font-family: 'cheltenham400';
+  src: url(${font__main}), url(${font__main}) format('woff');
+}
+@font-face {
+  font-family: 'franklin';
+  src: url(${font__franklin}), url(${font__franklin}) format('woff');
+}
+
+
+
+
+.uk-card-body {
+  padding: 15px 15px;
+}
+.uk-label {
+   background: #d4c89e;
+   font-size: 0.7rem;
+   
+  }
+  .uk-card-footer {
+    padding: 10px 20px;
+}
+.card-text{
+    font-family:  'cheltenham400',georgia,"times new roman",times,serif;;
+    font-size: 1rem;
+    color: #333;
+    line-height: 28px;
+    line-height: 1.75rem;
+    letter-spacing: .01em;
+
+  }
+.uk-card-title{
+    font-family:  'franklin',georgia,"times new roman",times,serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 28px;
+    line-height: 1.75rem;
+    letter-spacing: .01em;
+  }
+.uk-card-badge {
+  top: 15px;
+  right: 15px;
+ }
+.img-wrapper{
+  position: relative;
+}
+.img-wrapper > img{
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  z-index: 10;
+}
+.colored-shadow{
+  transform: scale(.85);
+  top: 8px;
+  filter: blur(12px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: 5;
+
+
+}
+.uk-card-default {
+  background: #fff;
+  color: #666;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.25s ease-in
+}
+.uk-card-default:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transform: translateY(-5px);
+}
+
+
 `
 export const header = css`
   .logo{
