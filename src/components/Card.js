@@ -34,7 +34,10 @@ export const Card = (props) => {
       </div>
       <style jsx>{card}</style>
       <style jsx>{`
-       
+       .card-wrapper{
+         
+
+       }
      `}</style>
     </div>
 

@@ -278,7 +278,7 @@ export const header = css`
   margin: 0 auto;
 }
 .logo::after{
-  z-index: 500;
+  z-index: 200;
   position: absolute;
     bottom: 1rem;
     right: 0;

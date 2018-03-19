@@ -6,6 +6,7 @@ import Header from './Header';
 import axios from 'axios';
 import { Card } from './Card';
 import Modal from './UI/Modal';
+import Wrapper from '../hoc/Wrapper';
 
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -19,7 +20,7 @@ class Body extends Component {
     articles: [],
     clicked: false,
     clickedId: '',
-    chosenArticle: {}
+    chosenArticle: null
   };
 
   getQuery = (query) => this.setState({ query })
@@ -49,27 +50,28 @@ class Body extends Component {
 
   render() {
     return (
-      <div className="main">
-        {this.state.clicked ? <Modal article={this.state.chosenArticle} /> : null}
-        <Header />
-        <div className="uk-width-3-4@m uk-flex-center results uk-container" >
-          <Form onSubmit={this.handleFormSubmit} query={this.getQuery} />
-          <div className="results-wrapper uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@l uk-flex-around uk-grid-match" data-uk-grid>
-            {this.state.articles.map(article => {
-              return (
-                <Card key={article._id} article={article} click={this.handleCardClick} clickState={this.state.clicked} clickedId={this.state.clickedId} />
-              )
-            })}
+      <Wrapper>
+        <div className="main">
+          <Modal show={this.state.clicked} article={this.state.chosenArticle} />
+          <Header />
+          <div className="uk-width-3-4@m uk-flex-center results uk-container" >
+            <Form onSubmit={this.handleFormSubmit} query={this.getQuery} />
+            <div className="results-wrapper uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@l uk-flex-around uk-grid-match" data-uk-grid>
+              {this.state.articles.map(article => {
+                return (
+                  <Card key={article._id} article={article} click={this.handleCardClick} clickState={this.state.clicked} clickedId={this.state.clickedId} />
+                )
+              })}
+            </div>
           </div>
+          <style jsx>{styles}</style>
+          <style jsx>{`
+            .results-wrapper{
+              padding-bottom: 1rem;
+            }
+          `}</style>
         </div>
-        <style jsx>{styles}</style>
-        <style jsx>{`
-          .results-wrapper{
-            padding-bottom: 1rem;
-
-          }
-        `}</style>
-      </div>
+      </Wrapper>
     )
   }
 }
