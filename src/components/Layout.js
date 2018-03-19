@@ -5,16 +5,21 @@ import styles from './styles';
 import Header from './Header';
 import axios from 'axios';
 import { Card } from './Card';
+import Modal from './UI/Modal';
 
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
 // url += `?api-key=${apiKey}&q=${event.target.value}&begin_date=${beginDate}&end_date=${endDate}`;
 
+
 class Body extends Component {
   state = {
     query: "",
-    articles: []
+    articles: [],
+    clicked: false,
+    clickedId: '',
+    chosenArticle: {}
   };
 
   getQuery = (query) => this.setState({ query })
@@ -22,27 +27,48 @@ class Body extends Component {
   handleFormSubmit = (event) => {
     const URLquery = `${url}?api-key=${apiKey}${this.state.query}`;
     console.log(URLquery);
-    axios.get(URLquery).then(res => {
-      this.setState({ articles: res.data.response.docs });
-    })
+    axios.get(URLquery)
+      .then(res => {
+        this.setState({ articles: res.data.response.docs });
+      })
+      .catch(err => console.log(err))
     event.preventDefault();
+  }
+  handleCardClick = (event, id) => {
+    event.preventDefault();
+    console.log(id);
+    let chosenArticle;
+    this.state.articles.forEach(el => {
+      if (el._id === id) chosenArticle = el;
+    });
+    console.log(chosenArticle);
+
+    this.setState({ clicked: !this.state.clicked, clickedId: id, chosenArticle });
+
   }
 
   render() {
     return (
       <div className="main">
+        {this.state.clicked ? <Modal article={this.state.chosenArticle} /> : null}
         <Header />
         <div className="uk-width-3-4@m uk-flex-center results uk-container" >
           <Form onSubmit={this.handleFormSubmit} query={this.getQuery} />
-          <div className="uk-child-width-1-1 uk-child-width-1-2@s uk-flex-around" data-uk-grid>
+          <div className="results-wrapper uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@l uk-flex-around uk-grid-match" data-uk-grid>
             {this.state.articles.map(article => {
               return (
-                <Card article={article} />
+                <Card key={article._id} article={article} click={this.handleCardClick} clickState={this.state.clicked} clickedId={this.state.clickedId} />
               )
             })}
           </div>
         </div>
         <style jsx>{styles}</style>
+        <style jsx>{`
+          .results-wrapper{
+            padding-bottom: 1rem;
+
+          }
+        `}</style>
       </div>
     )
   }
