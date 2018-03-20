@@ -46,7 +46,7 @@ class Body extends Component {
 
   }
   handleBackdropClick = (event) => {
-    setTimeout(() => this.setState({ clicked: !this.state.clicked }), 400)
+    setTimeout(() => this.setState({ clicked: !this.state.clicked }), 300)
   }
   render() {
     let modal = (this.state.clicked) ? (

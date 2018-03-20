@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import placeholder from '../placeholder_600.jpg';
-import { card, modal } from '../styles';
+import { modal } from '../styles';
 import Wrapper from '../../hoc/Wrapper';
 import Backdrop from './Backdrop';
 
@@ -29,10 +29,10 @@ class Modal extends Component {
       <Wrapper>
         <Backdrop
           show={this.props.show}
-          click={() => { this.props.backdropClick(); this.setState({ class: "" }) }}
+          click={() => { this.props.backdropClick(); this.setState({ class: "", opacity: 0 }) }}
         />
         <div className={`modal uk-card uk-card-default uk-card-body ${this.state.class}`}>
-          <button className="uk-modal-close-outside uk-close uk-icon" type="button" uk-close="" onClick={() => { this.props.backdropClick(); this.setState({ class: "" }) }}>
+          <button className="uk-modal-close-outside uk-close uk-icon" type="button" uk-close="" onClick={() => { this.props.backdropClick(); this.setState({ class: "", opacity: 0 }) }}>
             <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" ratio="1" >
             </svg>
           </button>
@@ -72,10 +72,6 @@ class Modal extends Component {
 
           <style jsx>{modal}</style>
           <style jsx>{`
-           *{
-              opacity: ${this.state.opacity};
-              transition: opacity ${this.state.opacity ? '2' : '0'}s ease;
-            }
             .uk-grid-small{
               
 
@@ -90,6 +86,7 @@ class Modal extends Component {
             .modal{
               position: fixed;
               z-index: 1000;
+              opacity: ${this.state.opacity};
               background-color: #fff;
               width:  ${this.props.coords.width}px;
               left: ${this.props.coords.left}px;
@@ -97,17 +94,17 @@ class Modal extends Component {
               top:  ${this.props.coords.top}px;
               border: 1px solid #ccc;
               box-sizing: border-box;
-              transition: all 0.4s ease-out;
+              transition: width 0.25s ease-in, left 0.25s ease-in,height 0.25s ease-in,top 0.25s ease-in,box-shadow 0.25s ease-in,  opacity ${this.state.opacity ? '0.6' : '0.3'}s ease-out;
+            
             }
             .modal.open{
               width: 80%;
               left: calc(50% - 40%);
               height: 60%;
               top: calc(50% - 30%);
-              border: 1px solid #ccc;
               box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
               padding: 16px;
-              transition: all 0.4s ease-in;
+              
 
             }
             /*@media (min-width: 1200px){
