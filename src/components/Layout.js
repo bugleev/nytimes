@@ -20,10 +20,12 @@ class Body extends Component {
     articles: [],
     clicked: false,
     clickedId: '',
-    chosenArticle: null
+    chosenArticle: null,
+    coords: {}
   };
 
-  getQuery = (query) => this.setState({ query })
+  getQuery = (query) => this.setState({ query });
+
 
   handleFormSubmit = (event) => {
     const URLquery = `${url}?api-key=${apiKey}${this.state.query}`;
@@ -35,24 +37,25 @@ class Body extends Component {
       .catch(err => console.log(err))
     event.preventDefault();
   }
-  handleCardClick = (event, id) => {
-    event.preventDefault();
-    console.log(id);
+  handleCardClick = (event, id, coords) => {
     let chosenArticle;
     this.state.articles.forEach(el => {
       if (el._id === id) chosenArticle = el;
     });
-    console.log(chosenArticle);
-
-    this.setState({ clicked: !this.state.clicked, clickedId: id, chosenArticle });
+    this.setState({ clicked: !this.state.clicked, clickedId: id, chosenArticle, coords });
 
   }
-
+  handleBackdropClick = (event) => {
+    setTimeout(() => this.setState({ clicked: !this.state.clicked }), 400)
+  }
   render() {
+    let modal = (this.state.clicked) ? (
+      <Modal show={this.state.clicked} article={this.state.chosenArticle} backdropClick={this.handleBackdropClick} coords={this.state.coords} />
+    ) : null
     return (
       <Wrapper>
         <div className="main">
-          <Modal show={this.state.clicked} article={this.state.chosenArticle} />
+          {modal}
           <Header />
           <div className="uk-width-3-4@m uk-flex-center results uk-container" >
             <Form onSubmit={this.handleFormSubmit} query={this.getQuery} />

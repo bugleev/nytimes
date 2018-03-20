@@ -21,7 +21,7 @@ const Navbar = (props) => {
               <li><a href="">About</a></li>
             </ul>
             <div className="nav-overlay uk-navbar-right">
-              <a className="uk-navbar-toggle" data-uk-icon="search" data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+              <a className="uk-navbar-toggle" data-uk-icon="search" data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href=""></a>
             </div>
             <div className="nav-overlay uk-navbar-left uk-flex-1" hidden>
               <div className="uk-navbar-item uk-width-expand">
@@ -29,7 +29,7 @@ const Navbar = (props) => {
                   <input className="uk-search-input" id="search" type="search" placeholder="Search..." autoFocus />
                 </form>
               </div>
-              <a className="uk-navbar-toggle" data-uk-close data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+              <a className="uk-navbar-toggle" data-uk-close data-uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href=""></a>
             </div>
           </div>
         </nav>

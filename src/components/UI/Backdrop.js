@@ -3,7 +3,7 @@ import React from 'react';
 const Backdrop = (props) => {
   if (props.show) {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={props.click}>
         <style jsx>{`
           .backdrop{
             width: 100%;

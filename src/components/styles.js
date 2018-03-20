@@ -71,6 +71,7 @@ export default css`
   }
 }
 `
+
 export const form = css`
 
 
@@ -154,9 +155,6 @@ export const card = css`
   src: url(${font__franklin}), url(${font__franklin}) format('woff');
 }
 
-
-
-
 .uk-card-body {
   padding: 15px 15px;
 }
@@ -176,12 +174,12 @@ export const card = css`
   font-family:  'cheltenham400',georgia,"times new roman",times,serif;
   display: block;
   margin: 1rem auto 0 auto;
-        font-size: 1rem;
-        height: 75px;
-        color: #333;
-        line-height: 28px;
-        line-height: 1.75rem;
-    letter-spacing: .01em;
+  font-size: 1rem;
+  height: 75px;
+  color: #333;
+  line-height: 28px;
+  line-height: 1.75rem;
+  letter-spacing: .01em;
     
   }
 .uk-card-title{
@@ -246,7 +244,6 @@ p > time {
   transform: translateY(-5px);
 }
 
-
 .card__shown {
   margin-left: auto;
   margin-right: auto;
@@ -264,13 +261,110 @@ p > time {
     height: 250px;
   }
 }
+`
+export const modal = css`
+
+@font-face {
+  font-family: 'cheltenham700';
+  src: url(${font__header}), url(${font__header}) format('woff');
+}
+@font-face {
+  font-family: 'cheltenham400';
+  src: url(${font__main}), url(${font__main}) format('woff');
+}
+@font-face {
+  font-family: 'franklin';
+  src: url(${font__franklin}), url(${font__franklin}) format('woff');
+}
+.card-text{
+  
+    
+  }
+  .uk-card-title{
+    font-family:  'franklin',georgia,"times new roman",times,serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 28px;
+    line-height: 1.75rem;
+    letter-spacing: .01em;
+  }
+  .uk-card-badge {
+    top: 15px;
+    right: 15px;
+  }
+  .uk-card-badge:nth-child(2) {
+    top: 40px;
+    right: 15px;
+  }
+  .uk-label {
+    background: #52658F;
+    color: #f6f6f3;
+    font-size: 0.7rem;
+    
+  }
+  .uk-label:nth-child(2) {
+    background: #d4c89e;
+   }
+   .uk-text-meta {
+     margin: 0 0 0.5rem 0;
+   }
+  p > time {
+    font-size: 0.7875rem;
+    line-height: 13px;
+    line-height: 0.8125rem;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "franklin",arial,helvetica,sans-serif;
+    display: block;
+    color: #999;
+  
+  }
+  hr{
+    width: 100%;
+    margin-top: 2rem;
+    margin-left: 1rem;
+  }
+  .headline{
+    font-family:  'cheltenham400',georgia,"times new roman",times,serif;
+    margin: 1rem auto 0 auto;
+    font-size: 1.4rem;
+    height: 75px;
+    color: #333;
+    line-height: 28px;
+    line-height: 1.75rem;
+    letter-spacing: .01em;
+  }
+  .img-wrapper {
+    position: relative;
+    width: 130px;
+   
+  }
+  .img-wrapper > img{
+    object-fit: cover;
+    width: 100%;
+    height: 80px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    z-index: 10;
+   
+  }
+  .colored-shadow{
+    transform: scale(.85);
+    top: 10px;
+    filter: blur(12px);
+    position: absolute;
+    width: 90%;
+    height: 100%;
+    background-size: cover;
+    z-index: 5;
+    
+    
+  }
+  
 
 
 `
-export const cardClicked = css`
 
-
-`
 export const header = css`
 .logo{
   position: relative;
