@@ -58,6 +58,9 @@ export default css`
     font-weight: 500;
   */
 }
+.results-wrapper{
+  padding-bottom: 1rem;
+}
 .results{
   z-index: 50;
   background-color: #F7F5E6;
@@ -70,8 +73,13 @@ export default css`
    width: 85%;
   }
 }
+@media only screen and (max-width: 480px) {
+  .results{
+   width: 90%;
+  }
+}
 `
-
+/********FORM STYLES***/
 export const form = css`
 
 
@@ -140,6 +148,7 @@ fieldset{
   }
 }
 `
+/******CARD STYLES*****/
 export const card = css`
 
 @font-face {
@@ -174,6 +183,7 @@ export const card = css`
   font-family:  'cheltenham400',georgia,"times new roman",times,serif;
   display: block;
   margin: 1rem auto 0 auto;
+  padding-bottom: 0.5rem;
   font-size: 1rem;
   height: 75px;
   color: #333;
@@ -262,6 +272,8 @@ p > time {
   }
 }
 `
+/*****MODAL STYLES***/
+
 export const modal = css`
 
 @font-face {
@@ -276,10 +288,9 @@ export const modal = css`
   font-family: 'franklin';
   src: url(${font__franklin}), url(${font__franklin}) format('woff');
 }
-.card-text{
-  
-    
-  }
+.title-grid{
+  margin-top: 0;
+}
   .uk-card-title{
     font-family:  'franklin',georgia,"times new roman",times,serif;
     font-weight: bold;
@@ -293,6 +304,10 @@ export const modal = css`
     right: 15px;
   }
   .uk-card-badge:nth-child(2) {
+    top: 35px;
+    right: 15px;
+  }
+  .uk-card-badge:nth-child(3) {
     top: 40px;
     right: 15px;
   }
@@ -305,18 +320,28 @@ export const modal = css`
   .uk-label:nth-child(2) {
     background: #d4c89e;
    }
+ 
+   .uk-label:nth-child(3) {
+     background: #6e634f;
+    }
    .uk-text-meta {
-     margin: 0 0 0.5rem 0;
-   }
-  p > time {
-    font-size: 0.7875rem;
-    line-height: 13px;
+     margin: 0 0 0.3rem 0;
+     font-size: 0.7875rem;
     line-height: 0.8125rem;
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
     font-family: "franklin",arial,helvetica,sans-serif;
     display: block;
-    color: #999;
+    color: #000;
+   }
+  p > time {
+    font-size: 0.7875rem;
+    line-height: 0.8125rem;
+    font-weight: 300;
+    font-style: normal;
+    font-family: "franklin",arial,helvetica,sans-serif;
+    display: block;
+    color: #000;
   
   }
   hr{
@@ -324,16 +349,53 @@ export const modal = css`
     margin-top: 2rem;
     margin-left: 1rem;
   }
-  .headline{
+ .body-left{
+  margin-bottom: 1rem;
+
+ } 
+ .body-left > span:nth-child(5), 
+ .body-left > span:nth-child(8) {
     font-family:  'cheltenham400',georgia,"times new roman",times,serif;
+    color: #000;
+    font-size: 1.0625rem;
+    line-height: 1.625rem;
+      }
+  .body-left  p,
+  .body-right p{
+    background: linear-gradient(to right,#d4c89e7a 100%,#E8E8E8 0%) no-repeat;
+    background-position: 50%;
+    background-size: 100% 50%;
+    color: #000;
+    display: inline-block;
+    margin:  0.5rem 0.3rem 0 0;
+    } 
+  .headline{
+    font-family:  'cheltenham700',georgia,"times new roman",times,serif;
     margin: 1rem auto 0 auto;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     height: 75px;
     color: #333;
     line-height: 28px;
     line-height: 1.75rem;
     letter-spacing: .01em;
   }
+  .modal-url,
+  .modal-url:hover{
+    word-wrap: break-word;
+    color: #326891;
+  }
+  .keyword{
+    color: #333A56;
+    display: inline-block;
+    font-size: 0.8rem;
+    margin: 0 0.5rem 0.5rem 0;
+    padding: 0.3em 0.5em;
+    background-color: #E8E8E8;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); 
+  }
+
+
+
   .img-wrapper {
     position: relative;
     width: 130px;
@@ -360,18 +422,73 @@ export const modal = css`
     
     
   }
-  
+  .uk-button-primary {
+    background-color: #333A56;
+    padding-left: 30px;
+    color: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    
+  }
+  .uk-button-primary:hover {
+    background-color: #52658F;
+  }
+  .uk-card-footer {
+    padding: 16px 30px 0 30px;
+  }
+  @media only screen and (min-width: 1200px) {
+    .colored-shadow{
+      width: 85%;
+      left: 35px;
+     
+    }
+  }
+
+  @media only screen and (min-width: 640px) and (max-width: 811px) {
+    .colored-shadow{
+      top: -5px;
+      width: 85%;
+      height: 75%;
+     
+    }
+  }
+  @media only screen and (max-width: 480px) {
+  .uk-modal-close-outside{
+    right: 10px;
+    top: 25px;
+    color: #000;
+  }
+  .uk-card-badge {
+    top: 25px;
+   
+  }
+  .uk-card-badge:nth-child(2) {
+    top: 45px;
+    
+  }
+  .uk-card-badge:nth-child(3) {
+    top: 50px;
+   
+  }
+}
 
 
 `
-
+/********HEADER SYLES *****/
 export const header = css`
+
+@font-face {
+  font-family: 'cheltenham400';
+  src: url(${font__main}), url(${font__main}) format('woff');
+}
+
 .logo{
   position: relative;
   padding: 2rem;
   margin: 0 auto;
 }
 .logo::after{
+  font-family:  'cheltenham400',georgia,"times new roman",times,serif;
   z-index: 200;
   position: absolute;
     bottom: 1rem;
@@ -401,6 +518,9 @@ export const header = css`
   @media only screen and (max-width: 480px) {
     .logo::after{
       font-size: 150%;
+    }
+    .header{
+      width: 90%;
     } 
               
   }

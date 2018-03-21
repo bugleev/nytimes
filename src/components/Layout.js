@@ -19,22 +19,35 @@ class Body extends Component {
     query: "",
     articles: [],
     clicked: false,
-    clickedId: '',
     chosenArticle: null,
-    coords: {}
+    coords: {},
+    error: null
   };
 
   getQuery = (query) => this.setState({ query });
 
-
+  clearArticles = () => {
+    this.setState({ articles: [] });
+  }
   handleFormSubmit = (event) => {
+    this.clearArticles();
     const URLquery = `${url}?api-key=${apiKey}${this.state.query}`;
     console.log(URLquery);
     axios.get(URLquery)
       .then(res => {
+        if (res.status !== 200) {
+          this.setState({ error: { status: res.status, error: res.data.status } });
+          return;
+        }
+        if (!res.data.response.docs.length) {
+          this.setState({ error: { status: 'Search', error: 'No results found!' } });
+          return;
+        }
         this.setState({ articles: res.data.response.docs });
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        this.setState({ error: err.response.data })
+      })
     event.preventDefault();
   }
   handleCardClick = (event, id, coords) => {
@@ -42,36 +55,55 @@ class Body extends Component {
     this.state.articles.forEach(el => {
       if (el._id === id) chosenArticle = el;
     });
-    this.setState({ clicked: !this.state.clicked, clickedId: id, chosenArticle, coords });
+    this.setState({ clicked: !this.state.clicked, chosenArticle, coords });
+    document.querySelector('body').classList.add('modal-open');
+    document.querySelector('.main').classList.add('modal-open');
 
   }
-  handleBackdropClick = (event) => {
-    setTimeout(() => this.setState({ clicked: !this.state.clicked }), 300)
+  handleBackdropClick = () => {
+    document.querySelector('body').classList.remove('modal-open');
+    document.querySelector('.main').classList.remove('modal-open');
+    setTimeout(() => this.setState({ clicked: !this.state.clicked }), 400)
+  }
+  handleError = () => {
+    this.setState({ error: null });
   }
   render() {
     let modal = (this.state.clicked) ? (
       <Modal show={this.state.clicked} article={this.state.chosenArticle} backdropClick={this.handleBackdropClick} coords={this.state.coords} />
-    ) : null
+    ) : null;
+
+    let error = this.state.error ? (
+      <div data-uk-alert data-uk-animation-toggle
+        className={`${this.state.error.status === 'Search' ? 'uk-alert-primary' : 'uk-alert-danger'}`}
+      >
+        <a className="uk-alert-close uk-animation-slide-top" data-uk-close onClick={this.handleError}></a>
+        <h3 className="uk-text-center uk-animation-slide-top">{this.state.error.status} Error</h3>
+        <p className="uk-text-center uk-animation-slide-top">{this.state.error.error}</p>
+      </div>
+    ) : null;
     return (
       <Wrapper>
+        {modal}
         <div className="main">
-          {modal}
           <Header />
           <div className="uk-width-3-4@m uk-flex-center results uk-container" >
             <Form onSubmit={this.handleFormSubmit} query={this.getQuery} />
             <div className="results-wrapper uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@l uk-flex-around uk-grid-match" data-uk-grid>
+              {error}
               {this.state.articles.map(article => {
                 return (
-                  <Card key={article._id} article={article} click={this.handleCardClick} clickState={this.state.clicked} clickedId={this.state.clickedId} />
+                  <Card key={article._id} article={article} click={this.handleCardClick} />
                 )
               })}
             </div>
           </div>
           <style jsx>{styles}</style>
           <style jsx>{`
-            .results-wrapper{
-              padding-bottom: 1rem;
-            }
+            .uk-alert-close {
+              top: 10px;
+              right: -255px;
+             }  
           `}</style>
         </div>
       </Wrapper>

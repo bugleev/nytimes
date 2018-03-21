@@ -80,8 +80,8 @@ class Form extends Component {
     }
   }
   handleUserInput = (event) => {
-    this.setState({ user_input: `&q=${event.target.value}` }, () => {
-      this.updateParamsQuery();
+    this.setState({ user_input: event.target.value }, () => {
+      // this.updateParamsQuery();
     });
   }
   handleDateChange = (date, dateType) => {
@@ -147,7 +147,7 @@ class Form extends Component {
         }
       }
     })
-    const userQuery = this.state.user_input;
+    const userQuery = this.state.user_input ? `&q=${this.state.user_input}` : "";
     const dateQuery = this.getDateQuery();
     const preQuery = checkParams ? "&fq=" : "";
 

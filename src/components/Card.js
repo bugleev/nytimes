@@ -5,7 +5,15 @@ import placeholder from './placeholder_600.jpg';
 
 
 export class Card extends Component {
+  componentDidUpdate() {
+    console.log(this.props.article._id + " update");
 
+  }
+  shouldComponentUpdate(newProps, newSate) {
+    console.log(this.props.article._id + " should");
+
+    return false;
+  }
   render() {
     let image = this.props.article.multimedia.length ? `https://static01.nyt.com/${this.props.article.multimedia[0].url}`
       : "";

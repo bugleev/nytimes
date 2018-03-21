@@ -10,7 +10,6 @@ const Backdrop = (props) => {
             height: 100%;
             z-index: 999;
             position: fixed;
-           background-color: #333333b0;
           }
        `}</style>
       </div>
