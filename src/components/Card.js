@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { card } from './styles';
 import placeholder from './placeholder_600.jpg';
 
 
 
-export class Card extends Component {
+export default class Card extends PureComponent {
   componentDidUpdate() {
-    console.log(this.props.article._id + " update");
+    console.log(this.props.article._id + " card did update");
 
   }
-  shouldComponentUpdate(newProps, newSate) {
-    console.log(this.props.article._id + " should");
+  // shouldComponentUpdate(newProps, newSate) {
+  //   console.log(this.props.article._id + " card should update");
 
-    return false;
-  }
+  //   // return false;
+  // }
   render() {
     let image = this.props.article.multimedia.length ? `https://static01.nyt.com/${this.props.article.multimedia[0].url}`
       : "";

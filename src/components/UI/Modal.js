@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import placeholder from '../placeholder_600.jpg';
 import { modal } from '../styles';
 import Wrapper from '../../hoc/Wrapper';
 import Backdrop from './Backdrop';
 
 
-class Modal extends Component {
+class Modal extends PureComponent {
   state = {
     class: "",
     opacity: 0
   }
+  componentDidUpdate() {
+    console.log("modal did update");
+
+  }
 
   componentDidMount() {
-    this.setState({ class: "open", opacity: 1 });
+    console.log(this.state);
+    console.log(this.props);
+
+    setTimeout(() => this.setState({ class: "open", opacity: 1 }), 50)
+
   }
 
   render() {
@@ -20,7 +28,7 @@ class Modal extends Component {
     let image;
     let pub_date;
     if (article) {
-      image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[1].url}` : "";
+      image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
       pub_date = new Date(article.pub_date);
       pub_date = `${pub_date.getFullYear()}\\${pub_date.getMonth() + 1}\\${pub_date.getDate()}`;
     }
@@ -34,17 +42,17 @@ class Modal extends Component {
         <div className={`modal uk-card uk-card-default uk-card-body ${this.state.class}`}>
           <button className="uk-modal-close-outside uk-close uk-icon" type="button" data-uk-close="" onClick={() => { this.props.backdropClick(); this.setState({ class: "", opacity: 0 }) }}>
           </button>
-          <div className="uk-grid-small uk-flex-middle" data-uk-grid>
+          <div className="uk-grid-small" data-uk-grid>
             <div className="uk-card-badge uk-label">{article ? article.type_of_material : ''}</div>
             <div className="uk-card-badge uk-label">{article ? article.document_type : ''}</div>
             <div className="uk-card-badge uk-label">{(article && article.new_desk && article.new_desk.toLowerCase() !== 'none') ? article.new_desk : ''}</div>
             <div className="uk-width-1-1 title-grid" data-uk-grid>
-              <div className="img-wrapper uk-width-1-3@s">
+              <div className="img-wrapper">
                 <img className="uk-border-rounded" width="100" height="80" src={image || placeholder} alt="placeholder" />
                 <div className="colored-shadow" style={{ backgroundImage: `url(${image || placeholder})` }} >
                 </div>
               </div>
-              <div className="uk-width-1-3@s">
+              <div className="uk-width-2-3@s">
                 <h3 className="uk-card-title uk-margin-remove-bottom">{article ? article.source : 'blank'}</h3>
                 <p className="uk-text-meta uk-margin-remove-top"><time dateTime="">{pub_date || 'blank'}</time></p>
                 <p className="uk-text-meta uk-margin-remove-top">{(article && article.byline) ? article.byline.original : ''}</p>
@@ -81,9 +89,10 @@ class Modal extends Component {
               left: ${this.props.coords.left}px;
               height: ${this.props.coords.height}px;
               top:  ${this.props.coords.top}px;
+             
               border: 1px solid #ccc;
               box-sizing: border-box;
-              transition: width 0.4s ease-in, left 0.4s ease-in,height 0.4s ease-in,top 0.4s ease-in,box-shadow 0.4s ease-in,  opacity ${this.state.opacity ? '0.8' : '0.5'}s ease-out;
+              transition: width 0.25s ease-in, left 0.25s ease-in,height 0.25s ease-in,top 0.25s ease-in,box-shadow 0.25s ease-in,  opacity ${this.state.opacity ? '0.6' : '0.3'}s ease-out;
             
             }
             .modal.open{
@@ -91,15 +100,16 @@ class Modal extends Component {
               left: calc(50% - 40%);
               height: auto;
               top: calc(50% - 30%);
-            
+             
               box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
               padding: 16px;
               border-radius: 3px;
+            
             }
             .uk-card-footer > a,
             .keyword{
               opacity: ${this.state.opacity};
-              transition: opacity ${this.state.opacity ? '0.8' : '0'}s ease-out;    
+              transition: opacity ${this.state.opacity ? '0.6' : '0'}s ease-out;    
 
             }
             @media only screen and (max-width: 480px) {
@@ -108,6 +118,7 @@ class Modal extends Component {
                 height: 90%;
                 padding-top: 25px;
                 overflow-y: scroll;
+                overflow-x: hidden;
                 left: calc(50% - 47.5%);
                 top: calc(50% - 45%);
             }

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import DatePicker from 'react-date-picker';
+
 import { form } from './styles';
 import data from "../assets/data";
 
@@ -30,10 +31,17 @@ const QueryField = (props) => {
   )
 }
 
-class Form extends Component {
+class Form extends PureComponent {
   componentDidMount() {
     this.updateParamsQuery();
   }
+
+  componentDidUpdate() {
+    console.log("form did update");
+
+  }
+
+
   state = {
     user_input: "",
     begin_date: "",
@@ -47,16 +55,16 @@ class Form extends Component {
     multipleQuery: false
   }
 
-  sendQueryToParent = () => this.props.query(this.state.query)
-
   handleClearButton = (event, fieldName) => {
 
-    let element = event.target.classList;
-    let selectedParams = event.target.nextSibling.selectedOptions;
     event.target.classList.add("pressed");
     setTimeout(() => {
       element.remove("pressed");
     }, 100)
+    let element = event.target.classList;
+    let selectedParams = event.target.nextSibling.selectedOptions;
+    if (!selectedParams.length) return;
+
 
     let newSearchParams = [...this.state.searchParams].map((element, index) => {
       if (Object.keys(element)[0] === fieldName) {
@@ -68,34 +76,35 @@ class Form extends Component {
     for (let i = 0; i < selectedParams.length; i++) {
       selectedParams[i].selected = false;
     }
-
+    const query = this.updateParamsQuery(newSearchParams);
     this.setState({
-      searchParams: newSearchParams,
+      searchParams: newSearchParams, query: query.join('')
     })
-    this.updateParamsQuery();
-
     // clearing selection for the second time because of the default selection appearing for some reason after first clear
     for (let i = 0; i < selectedParams.length; i++) {
       selectedParams[i].selected = false;
     }
   }
   handleUserInput = (event) => {
-    this.setState({ user_input: event.target.value }, () => {
-      // this.updateParamsQuery();
-    });
+    let query = this.updateParamsQuery();
+    query[0] = event.target.value ? `&q=${event.target.value}` : "";
+    this.setState({ user_input: event.target.value, query: query.join('') });
   }
   handleDateChange = (date, dateType) => {
+    let query = this.updateParamsQuery();
     if (dateType === "end_date" && date < this.state.begin_date) {
-      this.setState({ begin_date: new Date(date - 3.154e+10), end_date: date }, () => {
-        this.updateParamsQuery();
-      });
+      const newDate = { begin_date: new Date(date - 3.154e+10), end_date: date };
+      const newQuery = this.getDateQuery(newDate);
+      query[1, 2] = newQuery[0, 1];
+      this.setState({ begin_date: new Date(date - 3.154e+10), end_date: date, query: query.join('') });
     }
-    this.setState({ [dateType]: date }, () => {
-      this.updateParamsQuery();
-    });
+    const newDate = { [dateType]: date };
+    const newQuery = this.getDateQuery(newDate);
+    (dateType === "end_date") ? query[2] = newQuery[0] : query[1] = newQuery[0];
+    this.setState({ [dateType]: date, query: query.join('') });
   }
-  handleSelect = (event, fieldName) => {
 
+  handleSelect = (event, fieldName) => {
     let selectedFields = Array
       .from(event.target.selectedOptions)
       .map(el => `"${data[fieldName][el.index]}"`);
@@ -106,21 +115,23 @@ class Form extends Component {
       }
       return element;
     });
+    const query = this.updateParamsQuery(newSearchParams);
     this.setState({
-      searchParams: newSearchParams,
+      searchParams: newSearchParams, query: query.join('')
     })
-    this.updateParamsQuery();
+
   }
-  getDateQuery = () => {
+  getDateQuery = (obj) => {
     let newDate = [];
-    for (let key in this.state) {
+    const dateObject = obj || this.state;
+    for (let key in dateObject) {
       if (key === "begin_date" || key === "end_date") {
-        if (this.state[key]) {
-          let month = (this.state[key].getMonth() + 1);
+        if (dateObject[key]) {
+          let month = (dateObject[key].getMonth() + 1);
           month = (month < 10) ? ("0" + month.toString()) : month.toString();
-          let day = this.state[key].getDate();
+          let day = dateObject[key].getDate();
           day = (day < 10) ? ("0" + day.toString()) : day.toString();
-          newDate.push(`&${key}=${this.state[key].getFullYear()}${month}${day}`);
+          newDate.push(`&${key}=${dateObject[key].getFullYear()}${month}${day}`);
         } else {
           newDate.push("");
         }
@@ -129,11 +140,12 @@ class Form extends Component {
     return newDate;
   }
 
-  updateParamsQuery = () => {
+  updateParamsQuery = (obj) => {
     let checkParams = 0;
     let firstQuery = "";
     let restQuery = "";
-    this.state.searchParams.forEach(el => {
+    const paramsObject = obj || this.state.searchParams
+    paramsObject.forEach(el => {
       for (let key in el) {
         checkParams += el[key].length;
         if (el[key].length && !this.state.multipleQuery) {
@@ -150,17 +162,15 @@ class Form extends Component {
     const userQuery = this.state.user_input ? `&q=${this.state.user_input}` : "";
     const dateQuery = this.getDateQuery();
     const preQuery = checkParams ? "&fq=" : "";
+    const query = [userQuery, dateQuery[0], dateQuery[1], preQuery, firstQuery, restQuery.slice(5)];
+    return query;
 
-    this.setState({
-      query: userQuery + dateQuery[0] + dateQuery[1] + preQuery + firstQuery + restQuery.slice(5)
-    }, () => {
-      this.sendQueryToParent();
-    });
+
   }
 
   render() {
     return (
-      <form onSubmit={this.props.onSubmit} className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper" data-uk-grid>
+      <form onSubmit={(event) => { this.props.onSubmit(event, this.state.query); }} className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper" data-uk-grid>
         <hr className="uk-width-1-1" />
         <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
           <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>

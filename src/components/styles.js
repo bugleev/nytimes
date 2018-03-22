@@ -27,7 +27,18 @@ export default css`
 }
 */
 
-
+@font-face {
+  font-family: 'cheltenham700';
+  src: url(${font__header}), url(${font__header}) format('woff');
+}
+@font-face {
+  font-family: 'cheltenham400';
+  src: url(${font__main}), url(${font__main}) format('woff');
+}
+@font-face {
+  font-family: 'franklin';
+  src: url(${font__franklin}), url(${font__franklin}) format('woff');
+}
 .main{
   background-image: url(${img});
   background-size: contain;
@@ -81,7 +92,6 @@ export default css`
 `
 /********FORM STYLES***/
 export const form = css`
-
 
 .clear{
   cursor: pointer;
@@ -150,19 +160,6 @@ fieldset{
 `
 /******CARD STYLES*****/
 export const card = css`
-
-@font-face {
-  font-family: 'cheltenham700';
-  src: url(${font__header}), url(${font__header}) format('woff');
-}
-@font-face {
-  font-family: 'cheltenham400';
-  src: url(${font__main}), url(${font__main}) format('woff');
-}
-@font-face {
-  font-family: 'franklin';
-  src: url(${font__franklin}), url(${font__franklin}) format('woff');
-}
 
 .uk-card-body {
   padding: 15px 15px;
@@ -276,18 +273,6 @@ p > time {
 
 export const modal = css`
 
-@font-face {
-  font-family: 'cheltenham700';
-  src: url(${font__header}), url(${font__header}) format('woff');
-}
-@font-face {
-  font-family: 'cheltenham400';
-  src: url(${font__main}), url(${font__main}) format('woff');
-}
-@font-face {
-  font-family: 'franklin';
-  src: url(${font__franklin}), url(${font__franklin}) format('woff');
-}
 .title-grid{
   margin-top: 0;
 }
@@ -308,7 +293,7 @@ export const modal = css`
     right: 15px;
   }
   .uk-card-badge:nth-child(3) {
-    top: 40px;
+    top: 55px;
     right: 15px;
   }
   .uk-label {
@@ -345,7 +330,7 @@ export const modal = css`
   
   }
   hr{
-    width: 100%;
+    width: 95%;
     margin-top: 2rem;
     margin-left: 1rem;
   }
@@ -387,17 +372,21 @@ export const modal = css`
   .keyword{
     color: #333A56;
     display: inline-block;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin: 0 0.5rem 0.5rem 0;
     padding: 0.3em 0.5em;
     background-color: #E8E8E8;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); 
   }
-
-
-
+  
+  .img-wrapper + div{
+    margin-left: 150px;
+    margin-top: 15px;
+  }
   .img-wrapper {
-    position: relative;
+    position: absolute;
+    top: 15px;
+    left: 15px;
     width: 130px;
    
   }
@@ -452,6 +441,14 @@ export const modal = css`
      
     }
   }
+  @media only screen and (max-width: 640px) {
+    .img-wrapper + div{
+      margin-left: 5px;
+      margin-top: 80px;
+    }
+  }
+
+ 
   @media only screen and (max-width: 480px) {
   .uk-modal-close-outside{
     right: 10px;
