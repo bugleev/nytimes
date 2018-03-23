@@ -18,7 +18,10 @@ body {
   body.modal-open{
     overflow: hidden;
   }
- 
+  html{
+    font-size: 14px;
+
+ }
 }
 ::selection{
   background: #333A56 !important;

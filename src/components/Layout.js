@@ -4,7 +4,7 @@ import Form from './Form';
 import styles from './styles';
 import Header from './Header';
 import axios from 'axios';
-
+import { scrollDownSmooth } from '../helpers/scroll';
 import Modal from './UI/Modal';
 import Wrapper from '../hoc/Wrapper';
 import { Results } from './Results';
@@ -22,10 +22,13 @@ class Body extends Component {
     clicked: false,
     chosenArticle: null,
     coords: {},
+    loading: false,
     error: null
   };
 
   componentDidUpdate() {
+    this.state.loading && window.scrollTo(0, document.body.scrollHeight);
+
     console.log("body did update");
 
   }
@@ -35,36 +38,38 @@ class Body extends Component {
     return true;
   }
 
-  handleFormSubmit = (event, query) => {
+  handleFormSubmit = (event, query, coords) => {
     event.preventDefault();
+
     if (!query) {
-      this.setState({ error: { status: 'Search', error: 'No query provided' } });
-      return;
+      return this.setState({ error: { status: 'Search', error: 'No query provided' } }, () => window.scrollTo(0, document.body.scrollHeight));
+
     }
+    const scrollValue = coords.top + window.scrollY;
 
-
-    this.setState({ articles: [], query }, () => {
+    this.setState({ articles: [], query, loading: true }, () => {
       const URLquery = `${url}?api-key=${apiKey}${this.state.query}`;
       console.log(URLquery);
       axios.get(URLquery)
         .then(res => {
           if (res.status !== 200) {
-            this.setState({ error: { status: res.status, error: res.data.status } });
+            this.setState({ error: { status: res.status, error: res.data.status }, loading: false });
             return;
           }
           if (!res.data.response.docs.length) {
-            this.setState({ error: { status: 'Search', error: 'No results found!' } });
+            this.setState({ error: { status: 'Search', error: 'No results found!' }, loading: false });
             return;
           }
-          this.setState({ articles: res.data.response.docs, error: null });
+          this.setState({ articles: res.data.response.docs, error: null, loading: false });
+          scrollDownSmooth(scrollValue);
         })
         .catch(err => {
-          console.log(err);
-          this.setState({ error: err.response ? err.response.data : { error: "Service Unavailable" } })
+          this.setState({ error: err.response ? err.response.data : { error: "Service Unavailable" }, loading: false })
         })
 
     });
   }
+
   handleCardClick = (event, id, coords) => {
     let chosenArticle;
     this.state.articles.forEach(el => {
@@ -95,11 +100,16 @@ class Body extends Component {
           <Header />
           <div className="uk-width-3-4@m uk-flex-center results uk-container" >
             <Form onSubmit={this.handleFormSubmit} />
-            <Results error={this.state.error} handleError={this.handleError} articles={this.state.articles} clickHandler={this.handleCardClick} />
+            <Results error={this.state.error} handleError={this.handleError} articles={this.state.articles} clickHandler={this.handleCardClick} loadState={this.state.loading} />
           </div>
           <style jsx>{styles}</style>
           <style jsx>{`
-           
+           @media only screen and (max-width: 480px) {
+           html{
+              font-size: 14px;
+          
+           }
+          } 
           `}</style>
         </div>
       </Wrapper>

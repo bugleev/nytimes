@@ -1,12 +1,18 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { card } from './styles';
 import placeholder from './placeholder_600.jpg';
 
 
 
 export default class Card extends PureComponent {
-  componentDidUpdate() {
-    console.log(this.props.article._id + " card did update");
+  state = {
+    opacity: 0,
+    transform: '200px',
+    showTiming: `${this.props.timing}s`
+
+  }
+  componentDidMount() {
+    setTimeout(() => this.setState({ opacity: 1, transform: '0' }), 50)
 
   }
   // shouldComponentUpdate(newProps, newSate) {
@@ -20,12 +26,14 @@ export default class Card extends PureComponent {
     let pub_date = new Date(this.props.article.pub_date);
     pub_date = `${pub_date.getFullYear()}\\${pub_date.getMonth() + 1}\\${pub_date.getDate()}`;
     return (
-      <div className="card-wrapper" ref={(el) => this.instance = el}>
+      <div className={`card-wrapper`} ref={(el) => this.instance = el} style={{
+        opacity: `${this.state.opacity}`, transform: `translateY(${this.state.transform})`
+      }}>
         <div className="uk-card uk-card-default uk-card-body" id="card__stacked">
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-card-badge uk-label">{this.props.article.type_of_material}</div>
             <div className="img-wrapper">
-              <img className="uk-border-rounded" width="100" height="80" src={image || placeholder} alt="placeholder" />
+              <img className="uk-border-rounded" width="100" height="80" src={image || placeholder} alt="Article Image" />
               <div className="colored-shadow" style={{ backgroundImage: `url(${image || placeholder})` }} >
               </div>
             </div>
@@ -48,8 +56,14 @@ export default class Card extends PureComponent {
         <style jsx>{card}</style>
         <style jsx>{`
        .card-wrapper{
-         
+         opacity: 0;
+        
+         transition: all ${this.state.showTiming} ease-in;
 
+       }
+       .card-wrapper.open{
+         opacity: 1;
+         
        }
      `}</style>
       </div>

@@ -273,9 +273,9 @@ p > time {
 
 export const modal = css`
 
-.title-grid{
-  margin-top: 0;
-}
+  .title-grid{
+    margin-top: 0;
+  }
   .uk-card-title{
     font-family:  'franklin',georgia,"times new roman",times,serif;
     font-weight: bold;
@@ -372,7 +372,7 @@ export const modal = css`
   .keyword{
     color: #333A56;
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     margin: 0 0.5rem 0.5rem 0;
     padding: 0.3em 0.5em;
     background-color: #E8E8E8;
@@ -425,6 +425,27 @@ export const modal = css`
   .uk-card-footer {
     padding: 16px 30px 0 30px;
   }
+
+  @media only screen and (max-width: 480px) {
+    .uk-modal-close-outside{
+      right: 10px;
+      top: 25px;
+      color: #000;
+    }
+    .uk-card-badge {
+      top: 25px;
+     
+    }
+    .uk-card-badge:nth-child(2) {
+      top: 45px;
+      
+    }
+    .uk-card-badge:nth-child(3) {
+      top: 65px;
+     
+    }
+  }
+  
   @media only screen and (min-width: 1200px) {
     .colored-shadow{
       width: 85%;
@@ -449,26 +470,7 @@ export const modal = css`
   }
 
  
-  @media only screen and (max-width: 480px) {
-  .uk-modal-close-outside{
-    right: 10px;
-    top: 25px;
-    color: #000;
-  }
-  .uk-card-badge {
-    top: 25px;
-   
-  }
-  .uk-card-badge:nth-child(2) {
-    top: 45px;
-    
-  }
-  .uk-card-badge:nth-child(3) {
-    top: 50px;
-   
-  }
-}
-
+  
 
 `
 /********HEADER SYLES *****/

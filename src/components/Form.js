@@ -1,6 +1,5 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import DatePicker from 'react-date-picker';
-
 import { form } from './styles';
 import data from "../assets/data";
 
@@ -38,10 +37,7 @@ class Form extends PureComponent {
 
   componentDidUpdate() {
     console.log("form did update");
-
   }
-
-
   state = {
     user_input: "",
     begin_date: "",
@@ -56,7 +52,6 @@ class Form extends PureComponent {
   }
 
   handleClearButton = (event, fieldName) => {
-
     event.target.classList.add("pressed");
     setTimeout(() => {
       element.remove("pressed");
@@ -64,8 +59,6 @@ class Form extends PureComponent {
     let element = event.target.classList;
     let selectedParams = event.target.nextSibling.selectedOptions;
     if (!selectedParams.length) return;
-
-
     let newSearchParams = [...this.state.searchParams].map((element, index) => {
       if (Object.keys(element)[0] === fieldName) {
         element[fieldName] = [];
@@ -164,13 +157,15 @@ class Form extends PureComponent {
     const preQuery = checkParams ? "&fq=" : "";
     const query = [userQuery, dateQuery[0], dateQuery[1], preQuery, firstQuery, restQuery.slice(5)];
     return query;
-
-
   }
 
   render() {
     return (
-      <form onSubmit={(event) => { this.props.onSubmit(event, this.state.query); }} className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper" data-uk-grid>
+      <form
+        onSubmit={(event) => { this.props.onSubmit(event, this.state.query, this.instance.getBoundingClientRect()); }}
+        className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper"
+        data-uk-grid
+      >
         <hr className="uk-width-1-1" />
         <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
           <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
@@ -200,7 +195,7 @@ class Form extends PureComponent {
           <legend className="uk-legend">Search Query</legend>
           <input className="uk-input" id="queryInput" type="text" placeholder="Enter a keyword" onChange={this.handleUserInput} />
         </fieldset>
-        <input className="uk-button uk-button-primary" type="submit" />
+        <input className="uk-button uk-button-primary" type="submit" ref={(el) => this.instance = el} />
         <style jsx>{form}</style>
       </form>
     )

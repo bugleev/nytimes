@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import placeholder from '../placeholder_600.jpg';
 import { modal } from '../styles';
 import Wrapper from '../../hoc/Wrapper';
@@ -67,7 +67,7 @@ class Modal extends PureComponent {
               <br />
               <p>Kicker: </p><span>{(article && article.headline) ? article.headline.kicker : ''}</span>
               <br />
-              <p>URL: </p><a href={article ? article.web_url : ''} className="modal-url">{article ? article.web_url : ''}</a>
+              <p>URL: </p><a href={article ? article.web_url : ''} target="_blank" className="modal-url">{article ? article.web_url : ''}</a>
               <br />
               <p>Keywords:</p> {(article && article.keywords.length) ? article.keywords.map((el, ind) => (<div className="keyword" key={ind}>{el.value}</div>)) : ''}
             </div>
@@ -89,7 +89,6 @@ class Modal extends PureComponent {
               left: ${this.props.coords.left}px;
               height: ${this.props.coords.height}px;
               top:  ${this.props.coords.top}px;
-             
               border: 1px solid #ccc;
               box-sizing: border-box;
               transition: width 0.25s ease-in, left 0.25s ease-in,height 0.25s ease-in,top 0.25s ease-in,box-shadow 0.25s ease-in,  opacity ${this.state.opacity ? '0.6' : '0.3'}s ease-out;
@@ -100,7 +99,6 @@ class Modal extends PureComponent {
               left: calc(50% - 40%);
               height: auto;
               top: calc(50% - 30%);
-             
               box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
               padding: 16px;
               border-radius: 3px;
@@ -115,7 +113,7 @@ class Modal extends PureComponent {
             @media only screen and (max-width: 480px) {
               .modal.open{
                 width: 95%;
-                height: 90%;
+                max-height: 90%;
                 padding-top: 25px;
                 overflow-y: scroll;
                 overflow-x: hidden;
