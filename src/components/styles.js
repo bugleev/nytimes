@@ -71,6 +71,7 @@ export default css`
 }
 .results-wrapper{
   padding-bottom: 1rem;
+  
 }
 .results{
   z-index: 50;
@@ -78,6 +79,7 @@ export default css`
   /* box-shadow: 0 6px 45px #555;*/
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin: 0 auto 1rem auto;
+ 
 }
 @media only screen and (max-width: 959px) {
   .results{

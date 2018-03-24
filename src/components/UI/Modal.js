@@ -16,9 +16,6 @@ class Modal extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.state);
-    console.log(this.props);
-
     setTimeout(() => this.setState({ class: "open", opacity: 1 }), 50)
 
   }

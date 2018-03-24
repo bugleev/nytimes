@@ -36,6 +36,12 @@ export const Results = (props) => {
           <Card key={article._id} article={article} click={props.clickHandler} timing={timing} />
         )
       })}
+      <style jsx>{`
+        .results-wrapper{
+          margin-bottom: 1rem;
+
+        }
+      `}</style>
     </div>
   )
 }
