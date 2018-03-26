@@ -1,4 +1,4 @@
-import css from 'styled-jsx/css'
+import css from 'styled-jsx/css';
 import img from './newspaper.jpg';
 import font__header from '../cheltenham-italic-700.woff';
 import font__main from '../cheltenham-normal-400.woff';
@@ -159,6 +159,11 @@ fieldset{
     padding-right: 1rem;
   }
 }
+@media only screen and (max-width: 480px) {
+  .query pre code{
+    font-size: 0.8rem;
+   }
+}
 `
 /******CARD STYLES*****/
 export const card = css`
@@ -287,29 +292,31 @@ export const modal = css`
     letter-spacing: .01em;
   }
   .uk-card-badge {
-    top: 15px;
+    top: 50px;
     right: 15px;
   }
   .uk-card-badge:nth-child(2) {
-    top: 35px;
+    top: 15px;
     right: 15px;
   }
   .uk-card-badge:nth-child(3) {
-    top: 55px;
+    top: 25px;
     right: 15px;
   }
   .uk-label {
-    background: #52658F;
+    background: #6e634f;
     color: #f6f6f3;
     font-size: 0.7rem;
     
   }
   .uk-label:nth-child(2) {
-    background: #d4c89e;
+    background: #52658F;
+   
    }
  
    .uk-label:nth-child(3) {
-     background: #6e634f;
+     background: #d4c89e;
+    
     }
    .uk-text-meta {
      margin: 0 0 0.3rem 0;
@@ -332,12 +339,14 @@ export const modal = css`
   
   }
   hr{
-    width: 95%;
-    margin-top: 2rem;
-    margin-left: 1rem;
+    width: 100%;
+    margin-top: 1.5rem !important;
+    margin-left: 0;
+    padding-left: 0;
   }
  .body-left{
   margin-bottom: 1rem;
+  padding-left: 0;
 
  } 
  .body-left > span:nth-child(5), 
@@ -390,6 +399,7 @@ export const modal = css`
     top: 15px;
     left: 15px;
     width: 130px;
+    padding-left: 0;
    
   }
   .img-wrapper > img{
@@ -402,11 +412,12 @@ export const modal = css`
    
   }
   .colored-shadow{
-    transform: scale(.85);
+    transform: scale(.9);
     top: 10px;
+    left: 10px;
     filter: blur(12px);
     position: absolute;
-    width: 90%;
+    width: 100%;
     height: 100%;
     background-size: cover;
     z-index: 5;
@@ -435,15 +446,15 @@ export const modal = css`
       color: #000;
     }
     .uk-card-badge {
-      top: 25px;
+      top: 50px;
      
     }
     .uk-card-badge:nth-child(2) {
-      top: 45px;
+      top: 25px;
       
     }
     .uk-card-badge:nth-child(3) {
-      top: 65px;
+      top: 30px;
      
     }
   }
@@ -458,16 +469,21 @@ export const modal = css`
 
   @media only screen and (min-width: 640px) and (max-width: 811px) {
     .colored-shadow{
-      top: -5px;
-      width: 85%;
-      height: 75%;
-     
+      top: 10px;
+      width: 100%;
+      height: 100%;
+          
     }
   }
   @media only screen and (max-width: 640px) {
     .img-wrapper + div{
       margin-left: 5px;
-      margin-top: 80px;
+      margin-top: 90px;
+      padding-left: 15px;
+    }
+    hr{
+     margin-top: 0 !important;
+      
     }
   }
 

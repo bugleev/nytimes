@@ -2,8 +2,30 @@ import React, { PureComponent } from 'react';
 import DatePicker from 'react-date-picker';
 import { form } from './styles';
 import data from "../assets/data";
+import Wrapper from '../hoc/Wrapper';
 
-
+const UserInputField = (props) => (
+  <fieldset className="uk-fieldset uk-width-1-1">
+    <legend className="uk-legend">Search Query</legend>
+    <input className="uk-input" id="queryInput" type="text" placeholder="Enter a keyword" onChange={props.handleUserInput} />
+    <style jsx>{form}</style>
+  </fieldset>
+)
+const DateFields = (props) => (
+  <Wrapper>
+    <hr className="uk-width-1-1" />
+    <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
+      <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
+      <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
+        {props.children[0]}
+      </fieldset>
+      <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
+        {props.children[1]}
+      </fieldset>
+    </div>
+    <style jsx>{form}</style>
+  </Wrapper>
+)
 const SearchParamsField = (props) => {
   return (
     <div className="uk-width-1-2@s uk-flex-center" data-uk-grid>
@@ -11,6 +33,20 @@ const SearchParamsField = (props) => {
         <label className="uk-form-label" htmlFor="form-s-multiple">{props.field}</label><span className="uk-article-meta clear" onClick={props.onClear}>clear</span>
         <select defaultValue={[]} className="uk-select" id="form-s-multiple" multiple onChange={props.select}>
           {data[props.field].map((el, ind) => <option key={ind}>{el}</option>)}
+        </select>
+      </fieldset>
+      <style jsx>{form}</style>
+    </div>
+  )
+}
+const SortSelectionField = (props) => {
+  return (
+    <div className="uk-width-1-2@s uk-flex-center" data-uk-grid>
+      <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-1@s">
+        <label className="uk-form-label" htmlFor="form-s-select">Sort results by:</label>
+        <select className="uk-select" id="form-s-select" onChange={props.select}>
+          <option>newest</option>
+          <option>oldest</option>
         </select>
       </fieldset>
       <style jsx>{form}</style>
@@ -32,12 +68,12 @@ const QueryField = (props) => {
 
 class Form extends PureComponent {
   componentDidMount() {
-    this.updateParamsQuery();
+    const newQuery = this.updateParamsQuery();
+    this.setState({
+      query: newQuery.join('')
+    })
   }
 
-  componentDidUpdate() {
-    console.log("form did update");
-  }
   state = {
     user_input: "",
     begin_date: "",
@@ -47,6 +83,7 @@ class Form extends PureComponent {
       { section_name: [] },
       { type_of_material: [] }
     ],
+    sortType: "newest",
     query: "",
     multipleQuery: false
   }
@@ -78,11 +115,13 @@ class Form extends PureComponent {
       selectedParams[i].selected = false;
     }
   }
+
   handleUserInput = (event) => {
     let query = this.updateParamsQuery();
     query[0] = event.target.value ? `&q=${event.target.value}` : "";
     this.setState({ user_input: event.target.value, query: query.join('') });
   }
+
   handleDateChange = (date, dateType) => {
     let query = this.updateParamsQuery();
     if (dateType === "end_date" && date < this.state.begin_date) {
@@ -95,6 +134,15 @@ class Form extends PureComponent {
     const newQuery = this.getDateQuery(newDate);
     (dateType === "end_date") ? query[2] = newQuery[0] : query[1] = newQuery[0];
     this.setState({ [dateType]: date, query: query.join('') });
+  }
+
+  handleSortParam = (event) => {
+    event.preventDefault();
+    let query = this.updateParamsQuery();
+    query[6] = `&sort=${event.target.selectedOptions[0].innerText}`
+    this.setState({
+      sortType: event.target.selectedOptions[0].innerText, query: query.join('')
+    })
   }
 
   handleSelect = (event, fieldName) => {
@@ -112,8 +160,8 @@ class Form extends PureComponent {
     this.setState({
       searchParams: newSearchParams, query: query.join('')
     })
-
   }
+
   getDateQuery = (obj) => {
     let newDate = [];
     const dateObject = obj || this.state;
@@ -155,47 +203,48 @@ class Form extends PureComponent {
     const userQuery = this.state.user_input ? `&q=${this.state.user_input}` : "";
     const dateQuery = this.getDateQuery();
     const preQuery = checkParams ? "&fq=" : "";
-    const query = [userQuery, dateQuery[0], dateQuery[1], preQuery, firstQuery, restQuery.slice(5)];
+    const sortType = `&sort=${this.state.sortType}`;
+    const query = [userQuery, dateQuery[0], dateQuery[1], preQuery, firstQuery, restQuery.slice(5), sortType];
     return query;
   }
 
   render() {
     return (
       <form
-        onSubmit={(event) => { this.props.onSubmit(event, this.state.query, this.instance.getBoundingClientRect()); }}
+        onSubmit={(event) => {
+          this.props.onSubmit(event, this.state.query, this.instance.getBoundingClientRect())
+        }}
         className="uk-width-4-5@m uk-width-1-1@s uk-flex-center wrapper"
         data-uk-grid
       >
-        <hr className="uk-width-1-1" />
-        <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
-          <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
-          <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
-            <DatePicker
-              onChange={(event, fieldName) => this.handleDateChange(event, "begin_date")}
-              value={this.state.begin_date} maxDate={this.state.end_date}
-            />
-          </fieldset>
-          <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
-            <DatePicker
-              onChange={(event, fieldName) => this.handleDateChange(event, "end_date")}
-              value={this.state.end_date} maxDate={new Date()}
-            />
-          </fieldset>
-        </div>
-        {this.state.searchParams.map((param, index) => {
-          return <SearchParamsField
+        <DateFields>
+          <DatePicker
+            onChange={(event, fieldName) => this.handleDateChange(event, "begin_date")}
+            value={this.state.begin_date}
+            maxDate={this.state.end_date}
+          />
+          <DatePicker
+            onChange={(event, fieldName) => this.handleDateChange(event, "end_date")}
+            value={this.state.end_date}
+            maxDate={new Date()}
+          />
+        </DateFields>
+        {this.state.searchParams.map((param, index) =>
+          <SearchParamsField
             select={(event, fieldName) => this.handleSelect(event, Object.keys(param)[0])}
             field={Object.keys(param)[0]}
             key={index}
             onClear={(event, fieldName) => this.handleClearButton(event, Object.keys(param)[0])}
           />
-        })}
+        )}
+        <SortSelectionField select={(event) => this.handleSortParam(event)} />
         <QueryField value={this.state.query} />
-        <fieldset className="uk-fieldset uk-width-1-1">
-          <legend className="uk-legend">Search Query</legend>
-          <input className="uk-input" id="queryInput" type="text" placeholder="Enter a keyword" onChange={this.handleUserInput} />
-        </fieldset>
-        <input className="uk-button uk-button-primary" type="submit" ref={(el) => this.instance = el} />
+        <UserInputField handleUserInput={this.handleUserInput} />
+        <input
+          className="uk-button uk-button-primary"
+          type="submit"
+          ref={(el) => this.instance = el}
+        />
         <style jsx>{form}</style>
       </form>
     )

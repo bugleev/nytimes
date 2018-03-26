@@ -15,11 +15,6 @@ export default class Card extends PureComponent {
     setTimeout(() => this.setState({ opacity: 1, transform: '0' }), 50)
 
   }
-  // shouldComponentUpdate(newProps, newSate) {
-  //   console.log(this.props.article._id + " card should update");
-
-  //   // return false;
-  // }
   render() {
     let image = this.props.article.multimedia.length ? `https://static01.nyt.com/${this.props.article.multimedia[0].url}`
       : "";
@@ -33,7 +28,7 @@ export default class Card extends PureComponent {
           <div className="uk-grid-small uk-flex-middle" data-uk-grid>
             <div className="uk-card-badge uk-label">{this.props.article.type_of_material}</div>
             <div className="img-wrapper">
-              <img className="uk-border-rounded" width="100" height="80" src={image || placeholder} alt="Article Image" />
+              <img className="uk-border-rounded" width="100" height="80" src={image || placeholder} alt="Article" />
               <div className="colored-shadow" style={{ backgroundImage: `url(${image || placeholder})` }} >
               </div>
             </div>
@@ -55,17 +50,14 @@ export default class Card extends PureComponent {
         </div>
         <style jsx>{card}</style>
         <style jsx>{`
-       .card-wrapper{
-         opacity: 0;
-        
-         transition: all ${this.state.showTiming} ease-in;
-
-       }
-       .card-wrapper.open{
-         opacity: 1;
-         
-       }
-     `}</style>
+          .card-wrapper{
+            opacity: 0;
+            transition: all ${this.state.showTiming} ease-in;
+          }
+          .card-wrapper.open{
+            opacity: 1;
+          }
+        `}</style>
       </div>
 
     )

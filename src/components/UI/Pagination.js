@@ -1,8 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
 const Pagination = (props) => {
-
-  console.log(props.pages);
   return (
     <div>
       <ul className="uk-pagination uk-text-center uk-flex-center">

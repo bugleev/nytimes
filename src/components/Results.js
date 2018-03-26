@@ -4,7 +4,7 @@ import { Spinner } from "./UI/Spinner";
 
 export const Results = (props) => {
 
-  let error = props.error ? (
+  const error = props.error ? (
     <div data-uk-alert data-uk-animation-toggle
       className={`${props.error.status === 'Search' ? 'uk-alert-primary' : 'uk-alert-danger'}`}
     >
@@ -33,13 +33,17 @@ export const Results = (props) => {
       {props.articles.map((article, index) => {
         timing += 0.1;
         return (
-          <Card key={article._id} article={article} click={props.clickHandler} timing={timing} />
+          <Card
+            key={article._id}
+            article={article}
+            click={props.clickHandler}
+            timing={timing}
+          />
         )
       })}
       <style jsx>{`
         .results-wrapper{
           margin-bottom: 1rem;
-
         }
       `}</style>
     </div>
