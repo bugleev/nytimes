@@ -158,8 +158,8 @@ class ModalElement extends PureComponent {
         >
           <ModalLabels />
           <ModalHeader />
-          <ModalBody />
-          <ModalFooter />
+          <ModalBody opacity={this.state.opacity} />
+          <ModalFooter opacity={this.state.opacity} />
         </Modal>
       </Wrapper>
     )

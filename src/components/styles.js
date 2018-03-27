@@ -92,6 +92,85 @@ export default css`
   }
 }
 `
+/********NAVBAR SYLES *****/
+export const navbar = css`
+  #search {
+    color: #333;
+  }
+ 
+  .uk-navbar-nav>li>a {
+    color: #A9B7C0;
+
+  }
+  .uk-navbar-nav>li>a:hover {
+    color: #333;
+  }
+  .uk-navbar-nav>li:hover {
+    background-color: #e9ebe4;
+  }
+  .uk-navbar-nav>li.uk-active>a {
+    color: #333;
+  }
+  .uk-navbar-transparent {
+    background-color: #F7F5E6;
+  }
+  nav > div > ul > li:nth-child(2) > a{
+    cursor: default;
+  }
+
+`
+/********HEADER SYLES *****/
+export const header = css`
+
+@font-face {
+  font-family: 'cheltenham400';
+  src: url(${font__main}), url(${font__main}) format('woff');
+}
+
+.logo{
+  position: relative;
+  padding: 2rem;
+  margin: 0 auto;
+}
+.logo::after{
+  font-family:  'cheltenham400',georgia,"times new roman",times,serif;
+  z-index: 200;
+  position: absolute;
+    bottom: 1rem;
+    right: 0;
+    content: "archive";
+    color: #d4c89e;
+    font-size: 300%;
+    font-weight: bold;
+    text-shadow: 2px 0 1px #233237, -2px 0 1px #233237, 0 2px 1px #233237, 0 -3px 1px #233237, 2px 2px #233237, -2px -2px 0 #233237, 2px -2px 0 #233237, -2px 2px 0 #233237;
+    transform: rotateZ(-15deg)
+  }  
+
+  .header{
+    margin: 0 auto;
+    background-color: #F7F5E6;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+  @media only screen and (max-width: 959px) {
+    .header{
+      width: 85%;
+    }
+    .logo::after{
+      font-size: 200%;
+      margin-right: 1rem;
+    } 
+  }
+  @media only screen and (max-width: 480px) {
+    .logo::after{
+      font-size: 150%;
+    }
+    .header{
+      width: 90%;
+    } 
+              
+  }
+`
+
 /********FORM STYLES***/
 export const form = css`
 
@@ -251,6 +330,7 @@ p > time {
   color: #666;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: box-shadow 0.25s ease-out, transform 0.25s ease-out;
+  padding-bottom: 55px;
   
 }
 #card__stacked:hover {
@@ -490,57 +570,6 @@ export const modal = css`
  
   
 
-`
-/********HEADER SYLES *****/
-export const header = css`
-
-@font-face {
-  font-family: 'cheltenham400';
-  src: url(${font__main}), url(${font__main}) format('woff');
-}
-
-.logo{
-  position: relative;
-  padding: 2rem;
-  margin: 0 auto;
-}
-.logo::after{
-  font-family:  'cheltenham400',georgia,"times new roman",times,serif;
-  z-index: 200;
-  position: absolute;
-    bottom: 1rem;
-    right: 0;
-    content: "archive";
-    color: #d4c89e;
-    font-size: 300%;
-    font-weight: bold;
-    text-shadow: 2px 0 1px #233237, -2px 0 1px #233237, 0 2px 1px #233237, 0 -3px 1px #233237, 2px 2px #233237, -2px -2px 0 #233237, 2px -2px 0 #233237, -2px 2px 0 #233237;
-    transform: rotateZ(-15deg)
-  }  
-
-  .header{
-    margin: 0 auto;
-    background-color: #F7F5E6;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  }
-  @media only screen and (max-width: 959px) {
-    .header{
-      width: 85%;
-    }
-    .logo::after{
-      font-size: 200%;
-      margin-right: 1rem;
-    } 
-  }
-  @media only screen and (max-width: 480px) {
-    .logo::after{
-      font-size: 150%;
-    }
-    .header{
-      width: 90%;
-    } 
-              
-  }
 `
 
 
