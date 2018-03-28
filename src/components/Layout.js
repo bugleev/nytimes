@@ -8,23 +8,15 @@ import Modal from './UI/Modal';
 import Wrapper from '../hoc/Wrapper';
 import { Results } from './Results';
 import Pagination from './UI/Pagination';
+import { Footer } from './Footer';
 
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-
-// url += `?api-key=${apiKey}&q=${event.target.value}&begin_date=${beginDate}&end_date=${endDate}`;
 
 const Body = (props) => (
   <div className="main">
     {props.children}
     <style jsx>{styles}</style>
-    <style jsx>{`
-      @media only screen and (max-width: 480px) {
-        html{
-          font-size: 14px;
-        }
-      } 
-    `}</style>
   </div>
 )
 const Container = (props) => (
@@ -150,6 +142,7 @@ class Layout extends Component {
               />
               : null}
           </Container>
+          <Footer />
         </Body>
       </Wrapper>
     )

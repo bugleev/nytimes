@@ -5,8 +5,9 @@ import data from "../assets/data";
 import Wrapper from '../hoc/Wrapper';
 
 const UserInputField = (props) => (
-  <fieldset className="uk-fieldset uk-width-1-1">
-    <legend className="uk-legend">Search Query</legend>
+  <fieldset className="uk-fieldset uk-width-1-1 uk-text-center">
+    <p className="uk-width-1-1 label-text">3. Enter search query term:</p>
+    {/* <p className="uk-width-1-1 uk-text-center">Search is performed on the article body, headline and byline:</p> */}
     <input className="uk-input" id="queryInput" type="text" placeholder="Enter a keyword" onChange={props.handleUserInput} />
     <style jsx>{form}</style>
   </fieldset>
@@ -14,23 +15,29 @@ const UserInputField = (props) => (
 const DateFields = (props) => (
   <Wrapper>
     <hr className="uk-width-1-1" />
-    <div className="uk-width-1-1 uk-flex-center" data-uk-grid>
-      <p className="uk-width-1-1 uk-text-center">Set up a time interval for the search:</p>
+    <div className="uk-width-1-1 uk-flex-center uk-text-center" data-uk-grid>
+      <span className="uk-width-1-1 label-text">1. Set up a time interval for the search:</span>
       <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
         {props.children[0]}
       </fieldset>
       <fieldset className="uk-fieldset uk-width-1-2 uk-width-1-4@s datepicker">
         {props.children[1]}
       </fieldset>
+      <p className="uk-width-1-1 label-text">2. Add search parameters(optional):</p>
     </div>
     <style jsx>{form}</style>
   </Wrapper>
 )
 const SearchParamsField = (props) => {
+  const labelName = props.field
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
   return (
     <div className="uk-width-1-2@s uk-flex-center" data-uk-grid>
       <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-1@s">
-        <label className="uk-form-label" htmlFor="form-s-multiple">{props.field}</label><span className="uk-article-meta clear" onClick={props.onClear}>clear</span>
+        <label className="uk-form-label" htmlFor="form-s-multiple">{labelName}</label><span className="uk-article-meta clear" onClick={props.onClear}>clear</span>
         <select defaultValue={[]} className="uk-select" id="form-s-multiple" multiple onChange={props.select}>
           {data[props.field].map((el, ind) => <option key={ind}>{el}</option>)}
         </select>
@@ -67,16 +74,20 @@ const QueryField = (props) => {
 }
 
 class Form extends PureComponent {
-  componentDidMount() {
+  componentWillMount() {
+    console.log('did mount')
     const newQuery = this.updateParamsQuery();
     this.setState({
       query: newQuery.join('')
     })
   }
+  componentWillUpdate() {
+    console.log('update');
 
+  }
   state = {
     user_input: "",
-    begin_date: "",
+    begin_date: new Date(1851, 8, 18),
     end_date: new Date(),
     searchParams: [
       { news_desk: [] },
@@ -241,9 +252,10 @@ class Form extends PureComponent {
         <QueryField value={this.state.query} />
         <UserInputField handleUserInput={this.handleUserInput} />
         <input
-          className="uk-button uk-button-primary"
+          className="uk-button uk-button-primary uk-text-center"
           type="submit"
           ref={(el) => this.instance = el}
+          style={{ paddingLeft: "30px" }}
         />
         <style jsx>{form}</style>
       </form>

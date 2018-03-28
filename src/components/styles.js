@@ -6,26 +6,6 @@ import font__franklin from '../nyt-franklin-500-normal.woff';
 
 
 export default css`
-/*****BOX SHADOWS ******/
-/*
-.BoxShadowHelper(@level: 1){
-    & when (@level = 1) {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    }
-    & when (@level = 2) {
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    }
-    & when (@level = 3) {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    }
-    & when (@level = 4) {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    }
-    & when (@level = 5) {
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-    }
-}
-*/
 
 @font-face {
   font-family: 'cheltenham700';
@@ -42,7 +22,7 @@ export default css`
 .main{
   background-image: url(${img});
   background-size: contain;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
   
   /* border: 1px solid #d9d9d9;
   transition: box-shadow .4s ease; 
@@ -76,9 +56,8 @@ export default css`
 .results{
   z-index: 50;
   background-color: #F7F5E6;
-  /* box-shadow: 0 6px 45px #555;*/
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  margin: 0 auto 1rem auto;
+  margin: 0 auto;
  
 }
 @media only screen and (max-width: 959px) {
@@ -117,7 +96,87 @@ export const navbar = css`
   nav > div > ul > li:nth-child(2) > a{
     cursor: default;
   }
-
+  .uk-navbar {
+    margin: 0 auto;
+}
+  .uk-navbar-dropdown {
+    width: 150px;
+    padding: 10px;
+    
+  }
+  `
+/******ABOUT VIEW****/
+export const aboutView = css`
+  .about-view{
+    width: 75%;
+    height: 100vh;
+    background-color: #d4c89e;
+    display: block;
+    position: fixed;
+    margin: 0 auto;
+    top: 0;
+    left: calc(50% - 37.5%);
+    z-index: 999;
+    pointer-events: none;
+    transition: all 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 50% 0%, 0% 0%);
+  }  
+  .about-view.open{
+    pointer-events: all;
+    transition: all 0.75s cubic-bezier(0.47, 0, 0.745, 0.715);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 125%, 50% 150%, 0% 125%);
+  }
+  article{
+    padding: 2rem;
+    position: relative;
+  }
+  article button{
+    position: absolute;
+    top: 1rem;
+    left: 1rem;;
+  } 
+  .about-view article *{
+    opacity: 0;
+  }
+  .about-view.open article *{
+    animation: fadeIn 0.9s ease 0.1s;
+    animation-fill-mode: forwards;
+  }
+  .about-view.open article h1{
+    animation-delay: 0.2s;
+  }
+  .about-view.open article p:nth-of-type(1){
+    animation-delay: 0.3s;
+  }
+  .about-view.open article p:nth-of-type(2){
+    animation-delay: 0.4s;
+  }
+  .about-view.open article p:nth-of-type(3){
+    animation-delay: 0.5s;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translate3d(-100px, 0, 0);
+      }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    }
+    @media only screen and (max-width: 959px) {
+      .about-view{
+        width: 85%;
+        left: calc(50% - 42.5%);
+      }
+    }
+    @media only screen and (max-width: 480px) {
+      .about-view{
+        width: 90%;
+        left: calc(50% - 45%);
+        overflow-y: auto;
+      }
+    }
 `
 /********HEADER SYLES *****/
 export const header = css`
@@ -126,7 +185,6 @@ export const header = css`
   font-family: 'cheltenham400';
   src: url(${font__main}), url(${font__main}) format('woff');
 }
-
 .logo{
   position: relative;
   padding: 2rem;
@@ -145,7 +203,6 @@ export const header = css`
     text-shadow: 2px 0 1px #233237, -2px 0 1px #233237, 0 2px 1px #233237, 0 -3px 1px #233237, 2px 2px #233237, -2px -2px 0 #233237, 2px -2px 0 #233237, -2px 2px 0 #233237;
     transform: rotateZ(-15deg)
   }  
-
   .header{
     margin: 0 auto;
     background-color: #F7F5E6;
@@ -167,13 +224,14 @@ export const header = css`
     .header{
       width: 90%;
     } 
-              
   }
 `
-
 /********FORM STYLES***/
 export const form = css`
 
+.uk-form-label {
+  margin-left: 0.25rem;
+}
 .clear{
   cursor: pointer;
   float: right;
@@ -187,8 +245,9 @@ export const form = css`
   font-size: 85%;
   box-shadow: 0 1px 1px rgba(0,0,0,0.12);
 }
-
-
+.query{
+  margin-right: auto;
+}
 .query pre{
   width: 100%;
   min-height: 3rem;
@@ -232,6 +291,12 @@ fieldset{
 }
 .datepicker{
   margin-top: 1rem;
+}
+.uk-grid > * {
+  padding-left: 0;
+}
+.uk-grid {
+  margin-left: auto;
 }
 @media only screen and (min-width: 529px) {
   fieldset:first-of-type{
@@ -320,9 +385,7 @@ p > time {
   height: 100%;
   background-size: cover;
   z-index: 5;
-  
-  
-}
+  }
 
 #card__stacked {
   position: relative;
