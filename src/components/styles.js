@@ -22,11 +22,10 @@ export default css`
     background-image: url(${img});
     background-size: contain;
     padding-bottom: 0;
-    transition: filter 0.5s ease;
+    
   }
   .main.modal-open {
-    transition: filter 0.5s ease;
-    filter: grayscale(100%) brightness(60%);
+   
   }
   .results-wrapper{
     padding-bottom: 1rem;
