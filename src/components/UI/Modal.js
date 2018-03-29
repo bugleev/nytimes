@@ -135,7 +135,13 @@ class ModalElement extends PureComponent {
     class: "",
     opacity: 0
   }
+  componentWillUpdate() {
+    console.log(document.documentElement.scrollTop);
+
+  }
   componentDidMount() {
+    console.log(document.documentElement.scrollTop);
+
     setTimeout(() => this.setState({ class: "open", opacity: 1 }), 50)
   }
   handleModalRemove = () => {

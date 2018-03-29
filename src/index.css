@@ -10,3 +10,11 @@ body {
   color: #fff;
   text-shadow: none;
 }
+body.modal-open{
+ 
+  overflow-y: hidden;
+}
+body.about-open{
+  position: fixed;
+  overflow-y: scroll;
+}

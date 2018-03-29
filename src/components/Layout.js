@@ -99,11 +99,16 @@ class Layout extends Component {
       if (el._id === id) chosenArticle = el;
     });
     this.setState({ clicked: !this.state.clicked, chosenArticle, coords });
+
+    //const offset = document.documentElement.scrollTop;
     document.querySelector('body').classList.add('modal-open');
+    //document.querySelector('body').style.top = `-${offset}px`;
     document.querySelector('.main').classList.add('modal-open');
   }
 
   handleBackdropClick = () => {
+
+    //document.querySelector('body').style.top = ``;
     document.querySelector('body').classList.remove('modal-open');
     document.querySelector('.main').classList.remove('modal-open');
     setTimeout(() => this.setState({ clicked: !this.state.clicked }), 250)

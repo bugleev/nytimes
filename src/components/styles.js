@@ -34,7 +34,7 @@ export default css`
   .results{
     z-index: 50;
     background-color: #F7F5E6;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     margin: 0 auto;
   
   }
@@ -46,9 +46,13 @@ export default css`
   @media only screen and (max-width: 480px) {
     html{
       font-size: 14px;
-  }
+    }
     .results{
     width: 90%;
+    }
+    body.modal-open{
+      position: fixed;
+      overflow-y: hidden;
     }
   }
 `
@@ -105,6 +109,7 @@ export const aboutView = css`
   }  
   .about-view.open{
     pointer-events: all;
+    overflow-y: auto;
     transition: all 0.75s cubic-bezier(0.47, 0, 0.745, 0.715);
     clip-path: polygon(0% 0%, 100% 0%, 100% 125%, 50% 150%, 0% 125%);
   }

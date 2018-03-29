@@ -83,6 +83,7 @@ class Navbar extends PureComponent {
   }
   toggleAboutView = (event) => {
     event.preventDefault();
+    document.querySelector('body').classList.toggle('about-open');
     this.setState({ aboutView: !this.state.aboutView })
   }
   render() {

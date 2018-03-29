@@ -247,12 +247,11 @@ class Form extends PureComponent {
         <UserInputField handleUserInput={this.handleUserInput} />
         <QueryField value={this.state.query} />
         <div className="uk-width-1-1 uk-text-center">
-          <input
-            className="uk-button uk-button-primary uk-text-center"
-            type="submit"
+          <button
             ref={(el) => this.instance = el}
             style={{ paddingLeft: "30px" }}
-          />
+            className="uk-button uk-button-primary">Get articles
+          </button>
         </div>
         <style jsx>{form}</style>
       </form>
