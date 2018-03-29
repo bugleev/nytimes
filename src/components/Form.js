@@ -75,15 +75,10 @@ const QueryField = (props) => {
 
 class Form extends PureComponent {
   componentWillMount() {
-    console.log('did mount')
     const newQuery = this.updateParamsQuery();
     this.setState({
       query: newQuery.join('')
     })
-  }
-  componentWillUpdate() {
-    console.log('update');
-
   }
   state = {
     user_input: "",
