@@ -28,10 +28,21 @@ const AboutView = (props) => (
         className="uk-button uk-button-text"
         onClick={props.click}
       >Close</button>
-      <h1 className="uk-article-title"><a className="uk-link-reset" href="">Heading</a></h1>
-      <p className="uk-article-meta">Written by <a >Super User</a> on 12 April 2012. Posted in <a >Blog</a></p>
-      <p className="uk-text-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <h2 className=""><span>About this site</span></h2>
+      <div className="about-view__text uk-width-2-3@s">
+        <p>This is a web application, that uses NY Times API. With the Article Search API, you can search New York Times articles from Sept. 18, 1851 to today, retrieving headlines, abstracts, lead paragraphs, links to associated multimedia and other article.</p>
+        <h2 className="uk-text-center"><span>Copyrights</span></h2>
+        <p>The NY Times logos and trademarks and all the content, provided by the API, are owned by The New York Times Company and are not used for any commercial purposes. Owner of website do not accept liability for incorrect spelling, printing errors, misinformation or grammatical inaccuracies in any article found by the app.</p>
+        <h2 className="uk-text-center"><span>Non-commercial</span></h2>
+        <p>This app DOES NOT:</p>
+        <ul className="uk-list uk-list-bullet">
+          <li>Sell New York Times content or data in any way</li>
+          <li>Charge a subscription fee for any New York Times content or data</li>
+          <li>Use content inside itself that is paid or has a paid tier</li>
+        </ul>
+        <h2 className="uk-text-center"><span>Restriction</span></h2>
+        <p>The Article Search API is rate limited to 1,000 calls per day, and 1 call per second.</p>
+      </div>
     </article>
     <style jsx>{aboutView}</style>
   </div>

@@ -2,8 +2,7 @@ import React from "react";
 import { ScaleLoader } from 'react-spinners';
 
 
-export const Spinner = (props) => {
-
+const Spinner = (props) => {
   return (
     <div className="uk-width-1-1 uk-text-center">
       <ScaleLoader
@@ -26,3 +25,5 @@ export const Spinner = (props) => {
     </div>
   )
 }
+
+export default Spinner;

@@ -1,4 +1,4 @@
-export const scrollDownSmooth = (scrollTo, duration = 400, timingName = "ease-out") => {
+const scrollDownSmooth = (scrollTo, duration = 400, timingName = "ease-out") => {
   const TIMINGFUNC_MAP = {
     "linear": t => t,
     "ease-in": t => t * t,
@@ -19,3 +19,5 @@ export const scrollDownSmooth = (scrollTo, duration = 400, timingName = "ease-ou
   };
   window.requestAnimationFrame(step);
 }
+
+export default scrollDownSmooth;

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import placeholder from '../placeholder_600.jpg';
+import placeholder from '../../assets/images/placeholder_600.jpg';
 import { modal } from '../styles';
 import Wrapper from '../../hoc/Wrapper';
 import Backdrop from './Backdrop';

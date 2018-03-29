@@ -38,7 +38,7 @@ const SearchParamsField = (props) => {
     <div className="uk-width-1-2@s uk-flex-center" data-uk-grid>
       <fieldset className="uk-fieldset uk-width-1-1 uk-width-1-1@s">
         <label className="uk-form-label" htmlFor="form-s-multiple">{labelName}</label><span className="uk-article-meta clear" onClick={props.onClear}>clear</span>
-        <select defaultValue={[]} className="uk-select" id="form-s-multiple" multiple onChange={props.select}>
+        <select defaultValue={[]} className="uk-select" id="form-s-multiple" multiple onChange={props.select} style={{}}>
           {data[props.field].map((el, ind) => <option key={ind}>{el}</option>)}
         </select>
       </fieldset>
@@ -249,14 +249,16 @@ class Form extends PureComponent {
           />
         )}
         <SortSelectionField select={(event) => this.handleSortParam(event)} />
-        <QueryField value={this.state.query} />
         <UserInputField handleUserInput={this.handleUserInput} />
-        <input
-          className="uk-button uk-button-primary uk-text-center"
-          type="submit"
-          ref={(el) => this.instance = el}
-          style={{ paddingLeft: "30px" }}
-        />
+        <QueryField value={this.state.query} />
+        <div className="uk-width-1-1 uk-text-center">
+          <input
+            className="uk-button uk-button-primary uk-text-center"
+            type="submit"
+            ref={(el) => this.instance = el}
+            style={{ paddingLeft: "30px" }}
+          />
+        </div>
         <style jsx>{form}</style>
       </form>
     )

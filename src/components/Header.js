@@ -1,5 +1,5 @@
 import React from "react";
-import img from "./The_New_York_Times_logo2.png";
+import img from "../assets/images/NY_Times_logo.png";
 import { header } from './styles'
 import Navbar from "./Navbar";
 

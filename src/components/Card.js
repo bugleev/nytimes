@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react';
 import { card } from './styles';
-import placeholder from './placeholder_600.jpg';
-
-
-
+import placeholder from '../assets/images/placeholder_600.jpg';
 
 const CardContainer = (props) => (
   <div className="uk-card uk-card-default uk-card-body" id="card__stacked">

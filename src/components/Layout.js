@@ -3,12 +3,12 @@ import Form from './Form';
 import styles from './styles';
 import Header from './Header';
 import axios from 'axios';
-import { scrollDownSmooth } from '../helpers/scroll';
+import scrollDownSmooth from '../helpers/scroll';
 import Modal from './UI/Modal';
 import Wrapper from '../hoc/Wrapper';
-import { Results } from './Results';
+import Results from './Results';
 import Pagination from './UI/Pagination';
-import { Footer } from './Footer';
+import Footer from './Footer';
 
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";

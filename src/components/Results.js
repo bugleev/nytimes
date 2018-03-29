@@ -1,9 +1,8 @@
 import React from "react";
 import Card from "./Card";
-import { Spinner } from "./UI/Spinner";
+import Spinner from "./UI/Spinner";
 
-export const Results = (props) => {
-
+const Results = (props) => {
   const error = props.error ? (
     <div data-uk-alert data-uk-animation-toggle
       className={`${props.error.status === 'Search' ? 'uk-alert-primary' : 'uk-alert-danger'}`}
@@ -49,3 +48,4 @@ export const Results = (props) => {
     </div>
   )
 }
+export default Results;
