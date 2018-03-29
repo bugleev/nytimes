@@ -25,7 +25,7 @@ export default css`
     
   }
   .main.modal-open {
-   
+    
   }
   .results-wrapper{
     padding-bottom: 1rem;

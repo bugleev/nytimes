@@ -13,12 +13,25 @@ import Footer from './Footer';
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
-const Body = (props) => (
-  <div className="main">
-    {props.children}
-    <style jsx>{styles}</style>
-  </div>
-)
+const Body = (props) => {
+  const badBrowser = navigator.userAgent.indexOf("Firefox") !== -1;
+  return (
+    <div className="main">
+      {props.children}
+      <style jsx>{styles}</style>
+      <style jsx>{`
+       .main{
+        transition: ${badBrowser ? "none" : "filter 0.5s ease"};
+      }
+      .main.modal-open {
+        transition: ${badBrowser ? "none" : "filter 0.5s ease"};
+        filter: ${badBrowser ? "none" : "grayscale(100%) brightness(60%)"};
+      }
+    `}</style>
+    </div>
+  )
+}
+
 const Container = (props) => (
   <div className="uk-width-3-4@m uk-flex-center results uk-container" >
     {props.children}
@@ -42,7 +55,6 @@ class Layout extends Component {
     },
     scrollValue: 0
   };
-
   componentDidUpdate() {
     this.state.loading && window.scrollTo(0, document.body.scrollHeight);
   }
