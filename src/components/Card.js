@@ -30,8 +30,7 @@ const CardBody = (props) => {
   const article = props.article;
   let image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}`
     : "";
-
-  let pub_date = format(new Date("2018-03-29T23:42:00"), 'DD/MM/YYYY');
+  let pub_date = format(new Date(article.pub_date.replace(/\+\d*/g, '')), 'DD/MM/YYYY');
   return (
     <div className="uk-grid-small uk-flex-middle" data-uk-grid>
       <div className="uk-card-badge uk-label">{article.type_of_material}</div>

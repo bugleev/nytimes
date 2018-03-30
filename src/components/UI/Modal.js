@@ -71,7 +71,7 @@ const ModalLabels = (props) => {
 const ModalHeader = (props) => {
   const article = props.article;
   const image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
-  let pub_date = format(new Date(article.pub_date), 'MMMM Do YYYY, dddd');
+  let pub_date = format(new Date(article.pub_date.replace(/\+\d*/g, '')), 'MMMM Do YYYY, dddd');
   return (
     <Wrapper>
       <div className="uk-width-1-1 title-grid" data-uk-grid>
