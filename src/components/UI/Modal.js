@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { format } from 'date-fns';
 import placeholder from '../../assets/images/placeholder_600.jpg';
 import { modal } from '../styles';
 import Wrapper from '../../hoc/Wrapper';
@@ -70,8 +71,7 @@ const ModalLabels = (props) => {
 const ModalHeader = (props) => {
   const article = props.article;
   const image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
-  let pub_date = new Date(article.pub_date.replace(/\s/, 'T'));
-  pub_date = parseInt(pub_date.getFullYear(), 10) + "\\" + parseInt(pub_date.getMonth() + 1, 10) + "\\" + parseInt(pub_date.getDate(), 10);
+  let pub_date = format(new Date(article.pub_date), 'MMMM Do YYYY, dddd');
   return (
     <Wrapper>
       <div className="uk-width-1-1 title-grid" data-uk-grid>

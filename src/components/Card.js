@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { card } from './styles';
+import { format } from 'date-fns';
 import placeholder from '../assets/images/placeholder_600.jpg';
 
 const CardContainer = (props) => (
@@ -30,8 +31,7 @@ const CardBody = (props) => {
   let image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}`
     : "";
 
-  let pub_date = new Date(article.pub_date);
-  pub_date = parseInt(pub_date.getFullYear(), 10) + "\\" + parseInt(pub_date.getMonth() + 1, 10) + "\\" + parseInt(pub_date.getDate(), 10);
+  let pub_date = format(new Date(article.pub_date), 'DD/MM/YYYY');
   return (
     <div className="uk-grid-small uk-flex-middle" data-uk-grid>
       <div className="uk-card-badge uk-label">{article.type_of_material}</div>
