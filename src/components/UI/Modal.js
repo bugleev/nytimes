@@ -71,7 +71,7 @@ const ModalHeader = (props) => {
   const article = props.article;
   const image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
   let pub_date = new Date(article.pub_date.replace(/\s/, 'T'));
-  pub_date = `${pub_date.getFullYear()}\\${pub_date.getMonth() + 1}\\${pub_date.getDate()}`;
+  pub_date = parseInt(pub_date.getFullYear(), 10) + "\\" + parseInt(pub_date.getMonth() + 1, 10) + "\\" + parseInt(pub_date.getDate(), 10);
   return (
     <Wrapper>
       <div className="uk-width-1-1 title-grid" data-uk-grid>
