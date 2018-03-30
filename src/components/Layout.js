@@ -130,14 +130,15 @@ class Layout extends Component {
   }
 
   render() {
+    const { clicked, chosenArticle, coords, error, articles, loading, pages } = this.state;
     return (
       <Wrapper>
-        {this.state.clicked ?
+        {clicked ?
           <Modal
-            show={this.state.clicked}
-            article={this.state.chosenArticle}
+            show={clicked}
+            article={chosenArticle}
             backdropClick={this.handleBackdropClick}
-            coords={this.state.coords}
+            coords={coords}
           />
           : null}
         <Body>
@@ -145,16 +146,16 @@ class Layout extends Component {
           <Container>
             <Form onSubmit={this.handleFormSubmit} />
             <Results
-              error={this.state.error}
+              error={error}
               handleError={this.handleErrorMessage}
-              articles={this.state.articles}
+              articles={articles}
               clickHandler={this.handleCardClick}
-              loadState={this.state.loading}
+              loadState={loading}
             />
-            {this.state.pages.show ?
+            {pages.show ?
               <Pagination
                 handleClick={this.pageChange}
-                pages={this.state.pages}
+                pages={pages}
               />
               : null}
           </Container>

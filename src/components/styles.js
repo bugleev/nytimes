@@ -649,6 +649,8 @@ export const footer = css`
   }
   .app-logo p{
     margin: 0;
+    font-size: 0.875rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   .ny-logo{
     width: 30px;
@@ -666,7 +668,9 @@ export const footer = css`
   .credit {
     display: inline;
     margin-right: 5px;
-    font-size: 0.95rem;
+    font-size: 0.7rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
         
   }
   .bugol {
@@ -677,7 +681,8 @@ export const footer = css`
     display: inline;
     margin: 0;
     color: #d7d6c2;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
    
   }
   @media only screen and (min-width: 1200px){
