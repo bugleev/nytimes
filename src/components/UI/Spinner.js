@@ -13,7 +13,7 @@ const Spinner = (props) => {
       />
       <style jsx>{`
         .uk-text-center{
-          padding: ${props.loadState ? '2rem 0 2rem 0' : '0'};    
+           
         }
         @media only screen and (max-width: 480px) {
           .uk-text-center{

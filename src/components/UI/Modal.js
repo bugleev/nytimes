@@ -70,7 +70,7 @@ const ModalLabels = (props) => {
 const ModalHeader = (props) => {
   const article = props.article;
   const image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
-  let pub_date = new Date(article.pub_date);
+  let pub_date = new Date(article.pub_date.replace(/\s/, 'T'));
   pub_date = `${pub_date.getFullYear()}\\${pub_date.getMonth() + 1}\\${pub_date.getDate()}`;
   return (
     <Wrapper>
@@ -135,13 +135,8 @@ class ModalElement extends PureComponent {
     class: "",
     opacity: 0
   }
-  componentWillUpdate() {
-    console.log(document.documentElement.scrollTop);
 
-  }
   componentDidMount() {
-    console.log(document.documentElement.scrollTop);
-
     setTimeout(() => this.setState({ class: "open", opacity: 1 }), 50)
   }
   handleModalRemove = () => {

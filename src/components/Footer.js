@@ -9,7 +9,7 @@ const Footer = (props) => {
       <div className="uk-width-1-1 uk-text-center app-logo">
         <p>
           <img className="ny-logo" src={logoSmall} alt="nytimes logo" /> The New York Times Archive App
-          <img className="ny-logo" src={logoSmall} alt="nytimes logo" />
+
         </p>
       </div>
       <div className="uk-width-1-1 uk-text-center credits">

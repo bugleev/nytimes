@@ -53,7 +53,8 @@ class Layout extends Component {
       overall: null,
       show: false
     },
-    scrollValue: 0
+    scrollValue: 0,
+    offset: 0
   };
   componentDidUpdate() {
     this.state.loading && window.scrollTo(0, document.body.scrollHeight);
@@ -98,18 +99,16 @@ class Layout extends Component {
     this.state.articles.forEach(el => {
       if (el._id === id) chosenArticle = el;
     });
-    this.setState({ clicked: !this.state.clicked, chosenArticle, coords });
-
-    //const offset = document.documentElement.scrollTop;
+    const offset = document.documentElement.scrollTop;
+    this.setState({ clicked: !this.state.clicked, chosenArticle, coords, offset });
     document.querySelector('body').classList.add('modal-open');
-    //document.querySelector('body').style.top = `-${offset}px`;
+    document.querySelector('body').style.top = `-${offset}px`;
     document.querySelector('.main').classList.add('modal-open');
   }
 
   handleBackdropClick = () => {
-
-    //document.querySelector('body').style.top = ``;
     document.querySelector('body').classList.remove('modal-open');
+    window.scrollTo(0, this.state.offset);
     document.querySelector('.main').classList.remove('modal-open');
     setTimeout(() => this.setState({ clicked: !this.state.clicked }), 250)
   }

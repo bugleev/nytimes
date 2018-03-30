@@ -7,8 +7,9 @@ const Backdrop = (props) => {
       <div className="backdrop" onClick={props.click}>
         <style jsx>{`
           .backdrop{
-            width: 100vh;
-            height: 100vh;
+            top: 0;
+            width: 100%;
+            height: 100%;
             z-index: 999;
             position: fixed;
             background-color: ${badBrowser ? "rgba(51, 51, 51, 0.604)" : "none"};
