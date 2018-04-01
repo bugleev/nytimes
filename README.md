@@ -1,6 +1,6 @@
 <div align="center">
 <h1>NY Times Archive</h1>
-      <img width="200" heigth="200" src="https://bugleev.com/resources/images/nytimes.jpg">
+      <img width="500" heigth="200" src="https://bugleev.com/resources/images/nytimes.jpg">
    <br>
   <br>
   <p>
