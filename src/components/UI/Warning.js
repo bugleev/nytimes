@@ -13,12 +13,10 @@ const Warning = (props) => {
         </div>
         <style jsx>{`
           .warning{
-            
             border: 5px solid #333;
             padding: 1em;
             margin: 1em;
             background-color: #f8f8f8;
-            
             opacity: 0;
             top: calc(50% - 30%);
             z-index: 999;

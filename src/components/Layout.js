@@ -61,10 +61,13 @@ class Layout extends Component {
   componentDidUpdate() {
     this.state.loading && window.scrollTo(0, document.body.scrollHeight);
   }
-  componentDidMount() {
+  componentWillMount() {
     this.setState({ showWarning: !window.localStorage.getItem("warning") })
-    const warning = !window.localStorage.getItem("warning") && "true";
-    window.localStorage.setItem("warning", warning)
+
+    if (!window.localStorage.getItem("warning")) {
+      window.localStorage.setItem("warning", "true")
+    }
+
   }
   apiRequest = () => axios.get(`${url}?api-key=${apiKey}${this.state.query}`);
 
