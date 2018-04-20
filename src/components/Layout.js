@@ -9,6 +9,7 @@ import Wrapper from '../hoc/Wrapper';
 import Results from './Results';
 import Pagination from './UI/Pagination';
 import Footer from './Footer';
+import Warning from './UI/Warning';
 
 const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -54,12 +55,17 @@ class Layout extends Component {
       show: false
     },
     scrollValue: 0,
-    offset: 0
+    offset: 0,
+    showWarning: false
   };
   componentDidUpdate() {
     this.state.loading && window.scrollTo(0, document.body.scrollHeight);
   }
-
+  componentDidMount() {
+    this.setState({ showWarning: !window.localStorage.getItem("warning") })
+    const warning = !window.localStorage.getItem("warning") && "true";
+    window.localStorage.setItem("warning", warning)
+  }
   apiRequest = () => axios.get(`${url}?api-key=${apiKey}${this.state.query}`);
 
   displayResults = (res, scrollValue = this.state.scrollValue) => {
@@ -116,7 +122,9 @@ class Layout extends Component {
   handleErrorMessage = () => {
     this.setState({ error: null });
   }
-
+  closeWarning = () => {
+    this.setState({ showWarning: false });
+  }
   pageChange = (event, increment) => {
     event.preventDefault();
     const newPage = increment ? this.state.pages.current + 1 : this.state.pages.current - 1;
@@ -130,9 +138,10 @@ class Layout extends Component {
   }
 
   render() {
-    const { clicked, chosenArticle, coords, error, articles, loading, pages } = this.state;
+    const { clicked, chosenArticle, coords, error, articles, loading, pages, showWarning } = this.state;
     return (
       <Wrapper>
+        <Warning show={showWarning} click={this.closeWarning} />
         {clicked ?
           <Modal
             show={clicked}
