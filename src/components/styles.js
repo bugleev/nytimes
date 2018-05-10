@@ -100,18 +100,18 @@ export const aboutView = css`
     display: block;
     position: fixed;
     margin: 0 auto;
-    top: 0;
+    top: -100%;
     left: calc(50% - 37.5%);
     z-index: 999;
     pointer-events: none;
     transition: all 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 50% 0%, 0% 0%);
+   
   }  
   .about-view.open{
     pointer-events: all;
     overflow-y: auto;
     transition: all 0.75s cubic-bezier(0.47, 0, 0.745, 0.715);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 125%, 50% 150%, 0% 125%);
+    top: 0;
   }
   .about-view__text{
     text-align: justify;
