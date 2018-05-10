@@ -102,6 +102,7 @@ export const aboutView = css`
     margin: 0 auto;
     top: -100%;
     left: calc(50% - 37.5%);
+    
     z-index: 999;
     pointer-events: none;
     transition: all 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275);
