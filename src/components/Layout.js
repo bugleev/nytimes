@@ -11,7 +11,7 @@ import Pagination from './UI/Pagination';
 import Footer from './Footer';
 import Warning from './UI/Warning';
 
-const apiKey = "87316da987e94bcdaf7f0fae93edc9d8";
+const apiKey = "MAGeuhMAOGK5OqDEc8AqALxp0JizdzNQ";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
 const Body = (props) => {
