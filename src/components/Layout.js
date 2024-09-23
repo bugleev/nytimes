@@ -9,7 +9,6 @@ import Wrapper from '../hoc/Wrapper';
 import Results from './Results';
 import Pagination from './UI/Pagination';
 import Footer from './Footer';
-import Warning from './UI/Warning';
 
 const apiKey = "MAGeuhMAOGK5OqDEc8AqALxp0JizdzNQ";
 const url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -144,10 +143,9 @@ class Layout extends Component {
   }
 
   render() {
-    const { clicked, chosenArticle, coords, error, articles, loading, pages, showWarning } = this.state;
+    const { clicked, chosenArticle, coords, error, articles, loading, pages } = this.state;
     return (
       <Wrapper>
-        <Warning show={showWarning} click={this.closeWarning} />
         {clicked ?
           <Modal
             show={clicked}
