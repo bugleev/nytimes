@@ -26,10 +26,21 @@ const CardFooter = (props) => (
         `}</style>
   </div>
 )
+
+const getImageUrl = (article) => {
+  if (article.multimedia && article.multimedia.thumbnail && article.multimedia.thumbnail.url) {
+    return article.multimedia.thumbnail.url;
+  }
+
+  if (article.multimedia && article.multimedia.default && article.multimedia.default.url) {
+    return article.multimedia.default.url;
+  }
+  return "";
+};
+
 const CardBody = (props) => {
   const article = props.article;
-  let image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}`
-    : "";
+  let image = getImageUrl(article);
   let pub_date = format(new Date(article.pub_date.replace(/\+\d*/g, '')), 'DD/MM/YYYY');
   return (
     <div className="uk-grid-small uk-flex-middle" data-uk-grid>
