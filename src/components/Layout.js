@@ -82,7 +82,7 @@ class Layout extends Component {
       this.setState({ error: { status: 'Search', error: 'No results found!' }, loading: false });
       return;
     }
-    const numberOfPages = res.data.response.meta.hits >= 1000 ? 100 : Math.ceil((res.data.response.meta.hits - 10) / 10);
+    const numberOfPages = res.data.response.metadata.hits >= 1000 ? 100 : Math.ceil((res.data.response.metadata.hits - 10) / 10);
 
     this.setState({ articles: res.data.response.docs, error: null, loading: false, pages: { current: this.state.pages.current, overall: numberOfPages, show: true } });
     scrollDownSmooth(scrollValue);
