@@ -68,9 +68,22 @@ const ModalLabels = (props) => {
     </Wrapper>
   )
 }
+
+const getImageUrl = (article) => {
+   if (article.multimedia && article.multimedia.default && article.multimedia.default.url) {
+    return article.multimedia.default.url;
+  }
+
+  if (article.multimedia && article.multimedia.thumbnail && article.multimedia.thumbnail.url) {
+    return article.multimedia.thumbnail.url;
+  }
+
+  return "";
+};
+
 const ModalHeader = (props) => {
   const article = props.article;
-  const image = article.multimedia.length ? `https://static01.nyt.com/${article.multimedia[0].url}` : "";
+  const image = getImageUrl(article);
   let pub_date = format(new Date(article.pub_date.replace(/\+\d*/g, '')), 'MMMM Do YYYY, dddd');
   return (
     <Wrapper>
