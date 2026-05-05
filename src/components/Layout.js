@@ -83,7 +83,6 @@ class Layout extends Component {
       return;
     }
     const numberOfPages = res.data.response.metadata.hits >= 1000 ? 100 : Math.ceil((res.data.response.metadata.hits - 10) / 10);
-
     this.setState({ articles: res.data.response.docs, error: null, loading: false, pages: { current: this.state.pages.current, overall: numberOfPages, show: true } });
     scrollDownSmooth(scrollValue);
   }
@@ -101,7 +100,10 @@ class Layout extends Component {
     this.setState({ articles: [], query: query + `&page=1`, loading: true, pages: { current: 1 }, scrollValue }, () => {
       this.apiRequest()
         .then(res => this.displayResults(res, scrollValue))
-        .catch(err => this.displayError(err))
+        .catch(err => {
+          console.log(err);
+          this.displayError(err)
+        })
     });
   }
 

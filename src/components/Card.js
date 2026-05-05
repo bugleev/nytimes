@@ -40,7 +40,12 @@ const getImageUrl = (article) => {
 
 const CardBody = (props) => {
   const article = props.article;
-  let image = getImageUrl(article);
+  let image = "";
+  try {
+    image = getImageUrl(article);
+  } catch (error) {
+    console.log(error);
+  }
   let pub_date = format(new Date(article.pub_date.replace(/\+\d*/g, '')), 'DD/MM/YYYY');
   return (
     <div className="uk-grid-small uk-flex-middle" data-uk-grid>
